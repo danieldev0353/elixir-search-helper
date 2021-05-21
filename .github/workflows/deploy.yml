@@ -3,9 +3,8 @@ name: Deploy
 on:
   push:
     branches:
-      - master
+      - main
       - development
-      - chore/task-2-setup-cd
 
 env:
   # To API Key is used by Heroku CLI to authenticate
@@ -15,7 +14,7 @@ env:
 
 jobs:
   deploy:
-    name: Deploy to Heroku
+    name: Deploy Staging
     runs-on: ubuntu-latest
 
     steps:
@@ -30,14 +29,14 @@ jobs:
       - name: Login to Heroku Container registry
         run: heroku container:login
 
+      - name: Deploy Staging
+        if: github.ref == 'refs/heads/development'
+        run: |
+          heroku container:push -a ${{ env.HEROKU_STAGING_APP_NAME }} web
+          heroku container:release -a ${{ env.HEROKU_STAGING_APP_NAME }} web
+
       - name: Deploy Production
         if: github.ref == 'refs/heads/main'
         run: |
-          heroku container:push -a ${{ env.HEROKU_PRODUCTION_APP }} web
-          heroku container:release -a ${{ env.HEROKU_PRODUCTION_APP }} web
-
-      - name: Deploy Staging
-        if: github.ref == 'refs/heads/chore/task-2-setup-cd'
-        run: |
-          heroku container:push -a ${{ env.HEROKU_STAGING_APP }} web
-          heroku container:release -a ${{ env.HEROKU_STAGING_APP }} web
+          heroku container:push -a ${{ env.HEROKU_PRODUCTION_APP_NAME }} web
+          heroku container:release -a ${{ env.HEROKU_PRODUCTION_APP_NAME }} web
