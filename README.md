@@ -1,5 +1,3 @@
-[![Build Status](CI_BADGE_URL goes here)](REPO_URL goes here)
-
 ## Search Extractor
 
 > *This is and Elixir app that takes some keyword and searches to google and  stores some important information.*

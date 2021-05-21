@@ -8,6 +8,10 @@ labels: "type : feature"
 ## Why
 
 Describe the big picture of the feature and why it's needed. 
+
+## Acceptance Criteria
+
+Describe the acceptance criterias
  
 ## Who Benefits?
 
