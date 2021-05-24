@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  build:
+    build:
+      context: .
+      cache_from:
+        - elixir_search_extractor-build
+      target: build
+    image: elixir_search_extractor-build
+
+  app:
+    build:
+      context: .
+      cache_from:
+        - elixir_search_extractor-build
+        - elixir_search_extractor
+      target: app
+    image: elixir_search_extractor

@@ -1,28 +1,77 @@
-# Git Repository Template
+## Search Extractor
 
-Project repository template to set up all public projects at [Nimble](https://nimblehq.co/)
+> *This is and Elixir app that takes some keyword and searches to google and  stores some important information.*
 
-## Usage
+## Project Setup
 
-Clone the repository
+### Erlang & Elixir
 
-`git clone git@github.com:nimblehq/git-template.git`
+* Erlang 23.3
 
-## License
+* Elixir 1.11.4
 
-This project is Copyright (c) 2014 and onwards. It is free software,
-and may be redistributed under the terms specified in the [LICENSE] file.
+* Recommended version manager.
 
-[LICENSE]: /LICENSE
+  - [asdf](https://github.com/asdf-vm/asdf)
+  - [asdf-erlang](https://github.com/asdf-vm/asdf-erlang)
+  - [asdf-elixir](https://github.com/asdf-vm/asdf-elixir)
 
-## About
+### Development
 
-![Nimble](https://assets.nimblehq.co/logo/dark/logo-dark-text-160.png)
+* Install [Docker for Mac](https://docs.docker.com/docker-for-mac/install/)
 
-This project is maintained and funded by Nimble.
+* Setup and boot the Docker containers:
 
-We love open source and do our part in sharing our work with the community!
-See [our other projects][community] or [hire our team][hire] to help build your product.
+  ```sh
+  make docker_setup
+  ```
 
-[community]: https://github.com/nimblehq
-[hire]: https://nimblehq.co/
+* Install Elixir dependencies:
+
+  ```sh
+  mix deps.get
+  ```
+
+* Install Node dependencies:
+
+  ```sh
+  npm install --prefix assets
+  ```
+
+* Setup the databases:
+
+  ```sh
+  mix ecto.setup
+  ```
+
+* Start the Phoenix app
+
+  ```sh
+  iex -S mix phx.server
+  ```
+
+* Run all tests:
+
+  ```sh
+  mix test 
+  ```
+
+* Run all lint:
+
+  ```sh
+  mix codebase 
+  ```
+  
+* Test coverage:
+
+  ```sh
+  mix coverage 
+  ```
+
+### Production
+
+* Buidl Docker image
+
+  ```sh
+  docker-compose build
+  ```

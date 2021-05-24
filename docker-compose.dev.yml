@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:12.3
+    container_name: elixir_search_extractor_db
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_DB=elixir_search_extractor_dev
+    ports:
+      - "5432:5432"
