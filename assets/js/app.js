@@ -17,3 +17,6 @@ import "core-js/stable"
 import "regenerator-runtime/runtime"
 
 import "phoenix_html"
+
+// Bootstrap native
+import './vendor/bootstrap';
