@@ -1,0 +1,42 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - development
+
+env:
+  # To API Key is used by Heroku CLI to authenticate
+  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+  HEROKU_STAGING_APP_NAME: ${{ secrets.HEROKU_STAGING_APP }}
+  HEROKU_PRODUCTION_APP_NAME: ${{ secrets.HEROKU_PRODUCTION_APP }}
+
+jobs:
+  deploy:
+    name: Deploy Staging
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cancel previous runs
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Login to Heroku Container registry
+        run: heroku container:login
+
+      - name: Deploy Staging
+        if: github.ref == 'refs/heads/development'
+        run: |
+          heroku container:push -a ${{ env.HEROKU_STAGING_APP_NAME }} web
+          heroku container:release -a ${{ env.HEROKU_STAGING_APP_NAME }} web
+
+      - name: Deploy Production
+        if: github.ref == 'refs/heads/main'
+        run: |
+          heroku container:push -a ${{ env.HEROKU_PRODUCTION_APP_NAME }} web
+          heroku container:release -a ${{ env.HEROKU_PRODUCTION_APP_NAME }} web
