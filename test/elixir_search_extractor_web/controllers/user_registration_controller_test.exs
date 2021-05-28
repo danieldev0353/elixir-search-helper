@@ -42,7 +42,8 @@ defmodule ElixirSearchExtractorWeb.UserRegistrationControllerTest do
             "name" => "Test",
             "email" => "with spaces",
             "password" => "short",
-            "password_confirmation" => "does not match"}
+            "password_confirmation" => "does not match"
+          }
         })
 
       response = html_response(conn, 200)

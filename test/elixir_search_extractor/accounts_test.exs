@@ -1,8 +1,8 @@
 defmodule ElixirSearchExtractor.AccountsTest do
   use ElixirSearchExtractor.DataCase
 
-  alias ElixirSearchExtractor.Accounts
   import ElixirSearchExtractor.AccountsFixtures
+  alias ElixirSearchExtractor.Accounts
   # credo:disable-for-next-line Credo.Check.Consistency.MultiAliasImportRequireUse
   alias ElixirSearchExtractor.Accounts.{User, UserToken}
 
@@ -55,19 +55,18 @@ defmodule ElixirSearchExtractor.AccountsTest do
       assert %{
                password: ["can't be blank"],
                name: ["can't be blank"],
-               email: ["can't be blank"],
+               email: ["can't be blank"]
              } = errors_on(changeset)
     end
 
     test "validates email and password when given" do
-      {:error, changeset} = Accounts.register_user(
-        %{
+      {:error, changeset} =
+        Accounts.register_user(%{
           email: "not valid",
           name: "bad",
           password: "bad",
           password_confirmation: "not matching"
-        }
-      )
+        })
 
       assert %{
                email: ["must have the @ sign and no spaces"],
@@ -79,7 +78,10 @@ defmodule ElixirSearchExtractor.AccountsTest do
 
     test "validates maximum values for email and password for security" do
       too_long = String.duplicate("db", 100)
-      {:error, changeset} = Accounts.register_user(%{email: too_long, name: too_long, password: too_long})
+
+      {:error, changeset} =
+        Accounts.register_user(%{email: too_long, name: too_long, password: too_long})
+
       assert "should be at most 80 character(s)" in errors_on(changeset).email
       assert "should be at most 80 character(s)" in errors_on(changeset).name
       assert "should be at most 30 character(s)" in errors_on(changeset).password
@@ -167,8 +169,7 @@ defmodule ElixirSearchExtractor.AccountsTest do
     test "validates email uniqueness", %{user: user} do
       %{email: email} = user_fixture()
 
-      {:error, changeset} =
-        Accounts.apply_user_email(user, valid_user_password(), %{email: email})
+      {:error, changeset} = Accounts.apply_user_email(user, valid_user_password(), %{email: email})
 
       assert "has already been taken" in errors_on(changeset).email
     end

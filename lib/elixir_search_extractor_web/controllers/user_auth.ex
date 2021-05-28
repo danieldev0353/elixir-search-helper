@@ -3,7 +3,7 @@ defmodule ElixirSearchExtractorWeb.UserAuth do
   import Phoenix.Controller
 
   alias ElixirSearchExtractor.Accounts
-#  alias ElixirSearchExtractorWeb.Router.Helpers, as: Routes
+  #  alias ElixirSearchExtractorWeb.Router.Helpers, as: Routes
 
   # Make the remember me cookie valid for 60 days.
   # If you want bump or reduce this value, also change
@@ -121,29 +121,29 @@ defmodule ElixirSearchExtractorWeb.UserAuth do
     end
   end
 
-#  @doc """
-#  Used for routes that require the user to be authenticated.
-#
-#  If you want to enforce the user email is confirmed before
-#  they use the application at all, here would be a good place.
-#  """
-#  def require_authenticated_user(conn, _opts) do
-#    if conn.assigns[:current_user] do
-#      conn
-#    else
-#      conn
-#      |> put_flash(:error, "You must log in to access this page.")
-#      |> maybe_store_return_to()
-#      |> redirect(to: Routes.user_session_path(conn, :new))
-#      |> halt()
-#    end
-#  end
+  #  @doc """
+  #  Used for routes that require the user to be authenticated.
+  #
+  #  If you want to enforce the user email is confirmed before
+  #  they use the application at all, here would be a good place.
+  #  """
+  #  def require_authenticated_user(conn, _opts) do
+  #    if conn.assigns[:current_user] do
+  #      conn
+  #    else
+  #      conn
+  #      |> put_flash(:error, "You must log in to access this page.")
+  #      |> maybe_store_return_to()
+  #      |> redirect(to: Routes.user_session_path(conn, :new))
+  #      |> halt()
+  #    end
+  #  end
 
-#  defp maybe_store_return_to(%{method: "GET"} = conn) do
-#    put_session(conn, :user_return_to, current_path(conn))
-#  end
+  #  defp maybe_store_return_to(%{method: "GET"} = conn) do
+  #    put_session(conn, :user_return_to, current_path(conn))
+  #  end
 
-#  defp maybe_store_return_to(conn), do: conn
+  #  defp maybe_store_return_to(conn), do: conn
 
   defp signed_in_path(_conn), do: "/"
 end
