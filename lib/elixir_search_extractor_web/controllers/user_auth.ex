@@ -8,9 +8,9 @@ defmodule ElixirSearchExtractorWeb.UserAuth do
   # Make the remember me cookie valid for 60 days.
   # If you want bump or reduce this value, also change
   # the token expiry itself in UserToken.
-  @max_age 60 * 60 * 24 * 60
+  # @max_age 60 * 60 * 24 * 60
   @remember_me_cookie "_elixir_search_extractor_web_user_remember_me"
-  @remember_me_options [sign: true, max_age: @max_age, same_site: "Lax"]
+  # @remember_me_options [sign: true, max_age: @max_age, same_site: "Lax"]
 
   @doc """
   Logs the user in.
@@ -36,9 +36,9 @@ defmodule ElixirSearchExtractorWeb.UserAuth do
     |> redirect(to: user_return_to || signed_in_path(conn))
   end
 
-  defp maybe_write_remember_me_cookie(conn, token, %{"remember_me" => "true"}) do
-    put_resp_cookie(conn, @remember_me_cookie, token, @remember_me_options)
-  end
+  #  defp maybe_write_remember_me_cookie(conn, token, %{"remember_me" => "true"}) do
+  #    put_resp_cookie(conn, @remember_me_cookie, token, @remember_me_options)
+  #  end
 
   defp maybe_write_remember_me_cookie(conn, _token, _params) do
     conn
@@ -65,24 +65,24 @@ defmodule ElixirSearchExtractorWeb.UserAuth do
     |> clear_session()
   end
 
-  @doc """
-  Logs the user out.
-
-  It clears all session data for safety. See renew_session.
-  """
-  def log_out_user(conn) do
-    user_token = get_session(conn, :user_token)
-    user_token && Accounts.delete_session_token(user_token)
-
-    if live_socket_id = get_session(conn, :live_socket_id) do
-      ElixirSearchExtractorWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
-    end
-
-    conn
-    |> renew_session()
-    |> delete_resp_cookie(@remember_me_cookie)
-    |> redirect(to: "/")
-  end
+  #  @doc """
+  #  Logs the user out.
+  #
+  #  It clears all session data for safety. See renew_session.
+  #  """
+  #  def log_out_user(conn) do
+  #    user_token = get_session(conn, :user_token)
+  #    user_token && Accounts.delete_session_token(user_token)
+  #
+  #    if live_socket_id = get_session(conn, :live_socket_id) do
+  #      ElixirSearchExtractorWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
+  #    end
+  #
+  #    conn
+  #    |> renew_session()
+  #    |> delete_resp_cookie(@remember_me_cookie)
+  #    |> redirect(to: "/")
+  #  end
 
   @doc """
   Authenticates the user by looking into the session
