@@ -40,6 +40,7 @@ defmodule ElixirSearchExtractor.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bcrypt_elixir, "~> 2.0"},
       {:wallaby, "~> 0.28.0", [only: :test, runtime: false]},
       {:sobelow, "~> 0.11.1", [only: [:dev, :test], runtime: false]},
       {:exvcr, "~> 0.12.3", [only: :test]},
@@ -61,7 +62,8 @@ defmodule ElixirSearchExtractor.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:nimble_template, "~> 3.0", only: :dev, runtime: false}
+      {:nimble_template, "~> 3.0", only: :dev, runtime: false},
+      {:phx_gen_auth, "~> 0.7", only: :dev, runtime: false}
     ]
   end
 
