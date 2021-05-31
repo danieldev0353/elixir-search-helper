@@ -1,29 +1,6 @@
-<h1>Welcome to Phoenix!</h1>
+<h1>Dashboard!</h1>
 <!-- for better usage, wrap the tabs and contents -->
-<div id="myTabsWrapper">
-
-  <!-- Nav tabs -->
-  <ul id="myTabs" class="nav nav-tabs" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" id="home-tab" href="#home" data-bs-toggle="tab" data-height="true" aria-controls="home" aria-selected="true" role="tab">Home</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="profile-tab" href="#profile" data-bs-toggle="tab" data-height="true" aria-controls="profile" aria-selected="false" role="tab">Profile</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="messages-tab" href="#messages" data-bs-toggle="tab" data-height="true" aria-controls="messages" aria-selected="false" role="tab">Messages</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="settings-tab" href="#settings" data-bs-toggle="tab" data-height="true" aria-controls="settings" aria-selected="false" role="tab">Settings</a>
-    </li>
-  </ul>
-
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane fade active show" aria-labelledby="home-tab" id="home">HOME</div>
-    <div role="tabpanel" class="tab-pane fade" aria-labelledby="profile-tab" id="profile">PROFILE</div>
-    <div role="tabpanel" class="tab-pane fade" aria-labelledby="messages-tab" id="messages">MESSAGE</div>
-    <div role="tabpanel" class="tab-pane fade" aria-labelledby="settings-tab" id="settings">SETTINGS</div>
-  </div>
-
-</div>
+<ul>
+  <li><%= @current_user.name %></li>
+  <li><%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %></li>
+</ul>
