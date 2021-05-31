@@ -21,7 +21,9 @@ defmodule ElixirSearchExtractorWeb.AuthenticationPage.SignupPageTest do
     |> fill_in(Wallaby.Query.text_field("user_name"), with: user_attributes.name)
     |> fill_in(Wallaby.Query.text_field("user_email"), with: user_attributes.email)
     |> fill_in(Wallaby.Query.text_field("user_password"), with: user_attributes.password)
-    |> fill_in(Wallaby.Query.text_field("user_password_confirmation"), with: user_attributes.password_confirmation)
+    |> fill_in(Wallaby.Query.text_field("user_password_confirmation"),
+      with: user_attributes.password_confirmation
+    )
     |> click(Wallaby.Query.button("Register"))
   end
 end
