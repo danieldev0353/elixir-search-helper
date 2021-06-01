@@ -1,0 +1,65 @@
+$input-error-border-color: rgba(204, 16, 16, 0.75);
+$input-error-box-shadow: rem(0 0 0 4px) rgba(204, 16, 16, 0.25);
+
+.form {
+  $self: &;
+
+  width: 100%;
+
+  &__group {
+    margin-bottom: rem(16px);
+
+    label {
+      color: $gray-900;
+    }
+
+    &.required > label:first-of-type::after {
+      color: $red-500;
+      content: '*';
+      padding-left: rem(4px);
+    }
+  }
+
+  &__control {
+    @extend .form-control;
+
+    &--invalid {
+      border: rem(1px) solid $input-error-border-color;
+      box-shadow: $input-error-box-shadow;
+    }
+  }
+
+  &--horizontal {
+    #{ $self }__group {
+      @include make-row(0);
+    }
+
+    #{ $self }__group > label {
+      @include make-col(4);
+
+      padding: rem(8px 0);
+      margin-bottom: 0;
+    }
+
+    #{ $self }__control {
+      @include make-col(8);
+    }
+
+  }
+
+  &__invalid-feedback {
+    @include make-col(8);
+    @include make-col-offset(4);
+
+    color: $red-600;
+    font-size: map-get($font-size, 'sm');
+    font-weight: map-get($font-weight, 'medium');
+    line-height: rem(21px);
+    margin-top: rem(10px);
+    display: block;
+
+    &:empty {
+      display: none;
+    }
+  }
+}

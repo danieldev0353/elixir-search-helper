@@ -1,0 +1,5 @@
+<nav class="app-navbar">
+	<a href="/">
+		<img class="app-navbar__logo" src="<%= Routes.static_path(@conn, "/images/logo.svg") %>" alt="Logo"/>
+	</a>
+</nav>

@@ -1,0 +1,13 @@
+.app-navbar {
+  @extend .navbar-light;
+  @include make-container();
+
+  height: $app-header-height;
+  box-shadow: inset 0 rem(-1px) 0 $gray-400;
+  justify-content: space-between;
+  padding: rem(0 32px);
+
+  &__logo {
+    height: 100%;
+  }
+}

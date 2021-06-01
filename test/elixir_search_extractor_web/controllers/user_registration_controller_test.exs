@@ -7,7 +7,7 @@ defmodule ElixirSearchExtractorWeb.UserRegistrationControllerTest do
     test "renders registration page", %{conn: conn} do
       conn = get(conn, Routes.user_registration_path(conn, :new))
       response = html_response(conn, 200)
-      assert response =~ "<h1>Open an account!</h1>"
+      assert response =~ "<h4>Open an account!</h4>"
     end
 
     test "redirects if already logged in", %{conn: conn} do
@@ -47,7 +47,7 @@ defmodule ElixirSearchExtractorWeb.UserRegistrationControllerTest do
         })
 
       response = html_response(conn, 200)
-      assert response =~ "<h1>Open an account!</h1>"
+      assert response =~ "<h4>Open an account!</h4>"
       assert response =~ "should be at least 5 character"
       assert response =~ "must have the @ sign and no spaces"
       assert response =~ "should be at least 6 character"

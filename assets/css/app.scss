@@ -10,9 +10,12 @@
 // Mixins
 
 // Base
+@import 'base/form';
+@import 'base/button';
 
 // Layouts
-@import 'layouts/app';
+@import 'layouts/default';
 // Components
-
+@import 'components/app-navbar';
+@import 'components/card-auth';
 // Screens

@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="layout-default">
   <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>ElixirSearchExtractor · Phoenix Framework</title>
+    <title>ElixirSearchExtractor</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
-  <body>
-    <header class="app-header"></header>
+  <body class="<%= body_class_name(@conn) %>">
+    <header class="app-header">
+      <%= render ElixirSearchExtractorWeb.SharedView, "_app-navbar.html", conn: @conn %>
+    </header>
     <main class="app-content">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <%= render ElixirSearchExtractorWeb.SharedView, "_toast.html", conn: @conn %>
       <%= @inner_content %>
     </main>
-    <footer class="app-footer"></footer>
   </body>
 </html>
