@@ -5,7 +5,6 @@ defmodule ElixirSearchExtractor.Accounts do
 
   import Ecto.Query, warn: false
   alias ElixirSearchExtractor.Repo
-  # credo:disable-for-next-line Credo.Check.Consistency.MultiAliasImportRequireUse
   alias ElixirSearchExtractor.Accounts.{User, UserToken}
 
   ## Database getters

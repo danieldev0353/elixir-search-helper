@@ -3,7 +3,6 @@ defmodule ElixirSearchExtractor.AccountsTest do
 
   import ElixirSearchExtractor.AccountsFixtures
   alias ElixirSearchExtractor.Accounts
-  # credo:disable-for-next-line Credo.Check.Consistency.MultiAliasImportRequireUse
   alias ElixirSearchExtractor.Accounts.{User, UserToken}
 
   describe "get_user_by_email/1" do
