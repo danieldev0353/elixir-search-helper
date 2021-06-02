@@ -7,7 +7,7 @@ $input-error-box-shadow: rem(0 0 0 4px) rgba(204, 16, 16, 0.25);
   width: 100%;
 
   &__group {
-    margin-bottom: rem(16px);
+    margin-bottom: rem(15px);
 
     label {
       color: $gray-900;
@@ -16,7 +16,7 @@ $input-error-box-shadow: rem(0 0 0 4px) rgba(204, 16, 16, 0.25);
     &.required > label:first-of-type::after {
       color: $red-500;
       content: '*';
-      padding-left: rem(4px);
+      padding-left: rem(5px);
     }
   }
 
@@ -37,7 +37,7 @@ $input-error-box-shadow: rem(0 0 0 4px) rgba(204, 16, 16, 0.25);
     #{ $self }__group > label {
       @include make-col(4);
 
-      padding: rem(8px 0);
+      padding: rem(10px 0);
       margin-bottom: 0;
     }
 
@@ -54,7 +54,7 @@ $input-error-box-shadow: rem(0 0 0 4px) rgba(204, 16, 16, 0.25);
     color: $red-600;
     font-size: map-get($font-size, 'sm');
     font-weight: map-get($font-weight, 'medium');
-    line-height: rem(21px);
+    line-height: rem(20px);
     margin-top: rem(10px);
     display: block;
 
