@@ -5,8 +5,8 @@ defmodule ElixirSearchExtractorWeb.FeatureCase do
     quote do
       use Wallaby.Feature
 
-      import ElixirSearchExtractor.Factory
       import ElixirSearchExtractor.AccountsFixtures
+      import ElixirSearchExtractor.Factory
 
       alias ElixirSearchExtractorWeb.Router.Helpers, as: Routes
 
