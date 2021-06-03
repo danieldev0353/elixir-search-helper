@@ -1,39 +1,39 @@
 <div class="card-auth">
-	<div class="card-auth__form">
-		<div class="card-auth__title">
-			<h4>Open an account!</h4>
-		</div>
+  <div class="card-auth__form">
+    <div class="card-auth__title">
+      <h4><%= dgettext("auth", "Open an account!") %></h4>
+    </div>
 
-		<%= form_for @changeset, Routes.user_registration_path(@conn, :create), [class: "form form--horizontal"], fn f -> %>
-			<div class="form__group required">
-				<%= label f, :name %>
-				<%= text_input f, :name, required: true, class: "form__control"%>
-				<%= error_tag f, :name %>
-			</div>
+    <%= form_for @changeset, Routes.user_registration_path(@conn, :create), [class: "form form--horizontal"], fn f -> %>
+      <div class="form__group required">
+        <%= label f, :name, dgettext("auth", "Name") %>
+        <%= text_input f, :name, required: true, class: "form__control"%>
+        <%= error_tag f, :name %>
+      </div>
 
-			<div class="form__group required">
-				<%= label f, :email %>
-				<%= email_input f, :email, required: true, class: "form__control" %>
-				<%= error_tag f, :email %>
-			</div>
+      <div class="form__group required">
+        <%= label f, :email, dgettext("auth", "Email") %>
+        <%= email_input f, :email, required: true, class: "form__control" %>
+        <%= error_tag f, :email %>
+      </div>
 
-			<div class="form__group required">
-				<%= label f, :password %>
-				<%= password_input f, :password, required: true, class: "form__control" %>
-				<%= error_tag f, :password %>
-			</div>
+      <div class="form__group required">
+        <%= label f, :password, dgettext("auth", "Password") %>
+        <%= password_input f, :password, required: true, class: "form__control" %>
+        <%= error_tag f, :password %>
+      </div>
 
-			<div class="form__group required">
-				<%= label f, :password_confirmation, "Confirm password" %>
-				<%= password_input f, :password_confirmation, required: true, class: "form__control" %>
-				<%= error_tag f, :password_confirmation %>
-			</div>
+      <div class="form__group required">
+        <%= label f, :password_confirmation, dgettext("auth", "Confirm password") %>
+        <%= password_input f, :password_confirmation, required: true, class: "form__control" %>
+        <%= error_tag f, :password_confirmation %>
+      </div>
 
-			<%= submit "Register", class: "btn btn--primary card-auth__button" %>
-		<% end %>
+      <%= submit dgettext("auth", "Register"), class: "btn btn--primary card-auth__button" %>
+    <% end %>
 
-		<div class="card-auth__footer">
-			Already have an account? <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
-		</div>
-	</div>
+    <div class="card-auth__footer">
+      <%= dgettext("auth", "Already have an account?") %> <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
+    </div>
+  </div>
 </div>
