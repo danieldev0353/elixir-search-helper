@@ -61,3 +61,13 @@ msgstr ""
 #: lib/elixir_search_extractor_web/templates/user_session/new.html.eex:4
 msgid "Log in to Extractor!"
 msgstr ""
+
+#, elixir-format
+#: lib/elixir_search_extractor_web/templates/shared/_app-navbar.html.eex:18
+msgid "Log out"
+msgstr ""
+
+#, elixir-format
+#: lib/elixir_search_extractor_web/templates/shared/_app-navbar.html.eex:17
+msgid "Settings"
+msgstr ""

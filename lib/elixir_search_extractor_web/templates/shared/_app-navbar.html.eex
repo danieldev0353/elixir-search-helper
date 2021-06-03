@@ -14,8 +14,8 @@
         <p class="app-navbar__user-name"><%= @current_user.name %></p>
         <hr class="app-navbar__menu-divider">
         <div class="app-navbar__menu-action">
-          <a><%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %></a>
-          <a><%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %></a>
+          <a><%= link dgettext("auth", "Settings"), to: Routes.user_settings_path(@conn, :edit) %></a>
+          <a><%= link dgettext("auth", "Log out"), to: Routes.user_session_path(@conn, :delete), method: :delete %></a>
         </div>
       </div>
     </div>
