@@ -1,6 +1,6 @@
 $font-size: (
   sm: .875rem,   // 14px
-  md: 1rem,   // 14px
+  md: 1rem,      // 16px
 );
 
 // Font Weight
@@ -11,7 +11,13 @@ $font-weight: (
   bold: 700
 );
 
+$brand-gray: (
+  light: #f6f6f6,
+);
+
 // Bootstrap variables
 $primary: #5cd3b4;
+$font-family-base: 'Roboto', sans-serif;
+
 // Header
 $app-header-height: 4rem;
