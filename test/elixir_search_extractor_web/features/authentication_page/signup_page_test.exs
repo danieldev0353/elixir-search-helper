@@ -1,5 +1,5 @@
 defmodule ElixirSearchExtractorWeb.AuthenticationPage.SignupPageTest do
-  use ElixirSearchExtractorWeb.FeatureCase
+  use ElixirSearchExtractorWeb.FeatureCase, async: true
 
   feature "view sign up page", %{session: session} do
     session

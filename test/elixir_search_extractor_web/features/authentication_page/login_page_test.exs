@@ -1,5 +1,5 @@
 defmodule ElixirSearchExtractorWeb.AuthenticationPage.LoginPageTest do
-  use ElixirSearchExtractorWeb.FeatureCase
+  use ElixirSearchExtractorWeb.FeatureCase, async: true
 
   feature "view log in page", %{session: session} do
     session

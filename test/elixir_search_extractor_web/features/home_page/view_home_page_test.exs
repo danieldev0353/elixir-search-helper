@@ -1,5 +1,5 @@
 defmodule ElixirSearchExtractorWeb.HomePage.ViewHomePageTest do
-  use ElixirSearchExtractorWeb.FeatureCase
+  use ElixirSearchExtractorWeb.FeatureCase, async: true
 
   feature "view home page", %{session: session} do
     session
