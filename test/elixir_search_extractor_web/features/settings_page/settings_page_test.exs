@@ -1,5 +1,5 @@
 defmodule ElixirSearchExtractorWeb.SettingsPage.SettingsPageTest do
-  use ElixirSearchExtractorWeb.FeatureCase
+  use ElixirSearchExtractorWeb.FeatureCase, async: true
 
   feature "view settings page", %{session: session} do
     session
