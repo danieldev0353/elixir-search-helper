@@ -1,4 +1,4 @@
-<h1>Register</h1>
+<h1>Open an account!</h1>
 
 <%= form_for @changeset, Routes.user_registration_path(@conn, :create), fn f -> %>
   <%= if @changeset.action do %>
@@ -27,3 +27,7 @@
     <%= submit "Register" %>
   </div>
 <% end %>
+
+<p>
+  <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
+</p>

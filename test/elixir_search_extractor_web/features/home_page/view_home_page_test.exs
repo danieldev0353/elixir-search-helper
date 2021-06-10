@@ -1,9 +1,10 @@
 defmodule ElixirSearchExtractorWeb.HomePage.ViewHomePageTest do
-  use ElixirSearchExtractorWeb.FeatureCase
+  use ElixirSearchExtractorWeb.FeatureCase, async: true
 
   feature "view home page", %{session: session} do
-    visit(session, Routes.page_path(ElixirSearchExtractorWeb.Endpoint, :index))
-
-    assert_has(session, Query.text("Welcome to Phoenix!"))
+    session
+    |> register_and_login()
+    |> visit(Routes.page_path(ElixirSearchExtractorWeb.Endpoint, :index))
+    |> assert_has(Query.text("Dashboard!"))
   end
 end
