@@ -1,1 +1,16 @@
-// Site variables will be stored here
+$font-size: (
+  sm: .875rem,   // 14px
+);
+
+// Font Weight
+$font-weight: (
+  regular: 400,
+  medium: 500,
+  semi-bold: 600,
+  bold: 700
+);
+
+// Bootstrap variables
+$primary: #5cd3b4;
+// Header
+$app-header-height: 4rem;

@@ -1,0 +1,13 @@
+.layout-default {
+  > body {
+    display: flex;
+    flex-flow: column;
+    height: 100vh;
+  }
+
+  .app-content {
+    flex: 1;
+    background: #f6f6f6;
+    font-family: 'Roboto', sans-serif;
+  }
+}

@@ -1,8 +1,14 @@
 defmodule ElixirSearchExtractorWeb.LayoutViewTest do
   use ElixirSearchExtractorWeb.ConnCase, async: true
 
-  # When testing helpers, you may want to import Phoenix.HTML and
-  # use functions such as safe_to_string() to convert the helper
-  # result into an HTML string.
-  # import Phoenix.HTML
+  alias ElixirSearchExtractorWeb.LayoutView
+
+  describe "body_class_name/1" do
+    test "returns the CSS classes for the document body" do
+      conn =
+        get(build_conn(), Routes.user_registration_path(ElixirSearchExtractorWeb.Endpoint, :new))
+
+      assert LayoutView.body_class_name(conn) == "user-registration new"
+    end
+  end
 end

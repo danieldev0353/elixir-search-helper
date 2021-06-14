@@ -1,0 +1,30 @@
+.card-auth {
+  display: flex;
+  height: 100%;
+
+  &__title {
+    @include make-col-offset(4);
+
+    margin-bottom: rem(30px);
+    padding: rem(0 30px 10px 0);
+    border-bottom: rem(5px) solid $primary;
+  }
+
+  &__form {
+    @extend .card;
+
+    width: rem(500px);
+    padding: rem(20px);
+    margin: auto;
+  }
+
+  &__button {
+    @include make-col-offset(4);
+
+    margin-bottom: rem(30px);
+  }
+
+  &__footer {
+    text-align: center;
+  }
+}
