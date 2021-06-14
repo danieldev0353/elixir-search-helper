@@ -5,7 +5,7 @@ defmodule ElixirSearchExtractorWeb.SettingsPage.SettingsPageTest do
     session
     |> register_and_login()
     |> visit(Routes.user_settings_path(ElixirSearchExtractorWeb.Endpoint, :edit))
-    |> assert_has(Query.text("Settings"))
+    |> assert_has(Query.text("Change password!"))
   end
 
   feature "user can change password if correct current password is given", %{session: session} do

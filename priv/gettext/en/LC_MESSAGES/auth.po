@@ -18,6 +18,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/elixir_search_extractor_web/templates/user_registration/new.html.eex:27
+#: lib/elixir_search_extractor_web/templates/user_settings/edit.html.eex:18
 msgid "Confirm password"
 msgstr ""
 
@@ -71,4 +72,29 @@ msgstr ""
 #, elixir-format
 #: navbar.html.eex:17
 msgid "Settings"
+msgstr ""
+
+#, elixir-format
+#: lib/elixir_search_extractor_web/templates/user_settings/edit.html.eex:30
+msgid "Change password"
+msgstr ""
+
+#, elixir-format
+#: lib/elixir_search_extractor_web/templates/user_settings/edit.html.eex:4
+msgid "Change password!"
+msgstr ""
+
+#, elixir-format
+#: lib/elixir_search_extractor_web/templates/user_settings/edit.html.eex:24
+msgid "Current password"
+msgstr ""
+
+#, elixir-format
+#: lib/elixir_search_extractor_web/templates/user_settings/edit.html.eex:12
+msgid "New password"
+msgstr ""
+
+#, elixir-format
+#: lib/elixir_search_extractor_web/templates/user_settings/edit.html.eex:34
+msgid "Go back to"
 msgstr ""
