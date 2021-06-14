@@ -1,27 +1,32 @@
-<h1>Log in to Extractor!</h1>
-
-<%= form_for @conn, Routes.user_session_path(@conn, :create), [as: :user], fn f -> %>
-  <%= if @error_message do %>
-    <div class="alert alert-danger">
-      <p><%= @error_message %></p>
+<div class="card-auth">
+  <div class="card-auth__form">
+    <div class="card-auth__title">
+      <h4><%= dgettext("auth", "Log in to Extractor!") %></h4>
     </div>
-  <% end %>
 
-  <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
+    <%= form_for @conn, Routes.user_session_path(@conn, :create), [as: :user, class: "form form--horizontal"], fn f -> %>
+      <div class="form__group required">
+        <%= label f, :email, dgettext("auth", "Email")  %>
+        <%= email_input f, :email, required: true, class: "form__control" %>
+        <%= error_tag f, :email %>
+      </div>
 
-  <%= label f, :password %>
-  <%= password_input f, :password, required: true %>
+      <div class="form__group required">
+        <%= label f, :password, dgettext("auth", "Password")  %>
+        <%= password_input f, :password, required: true, class: "form__control" %>
+        <%= error_tag f, :password %>
+      </div>
 
-  <%= label f, :remember_me, "Keep me logged in for 60 days" %>
-  <%= checkbox f, :remember_me %>
+      <div class="form__checkbox-group">
+        <%= checkbox f, :remember_me %>
+        <%= label f, :remember_me, dgettext("auth", "Keep me logged in for 60 days") %>
+      </div>
 
-  <div>
-    <%= submit "Log in" %>
+      <%= submit "Log in", class: "btn btn--primary card-auth__button" %>
+    <% end %>
+
+    <div class="card-auth__footer">
+      <%= dgettext("auth", "Create an account") %> <%= link "Register", to: Routes.user_registration_path(@conn, :new) %>
+    </div>
   </div>
-<% end %>
-
-<p>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %>
-  <%#= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
-</p>
+</div>

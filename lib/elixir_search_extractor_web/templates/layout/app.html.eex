@@ -13,7 +13,7 @@
       <%= render ElixirSearchExtractorWeb.SharedView, "_app-navbar.html", conn: @conn %>
     </header>
     <main class="app-content">
-      <%= render ElixirSearchExtractorWeb.SharedView, "_toast.html", conn: @conn %>
+      <%= render ElixirSearchExtractorWeb.SharedView, "_app-toast.html", conn: @conn %>
       <%= @inner_content %>
     </main>
   </body>

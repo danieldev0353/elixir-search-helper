@@ -34,6 +34,12 @@ $input-error-box-shadow: rem(0 0 0 4px) rgba(204, 16, 16, 0.25);
       @include make-row(0);
     }
 
+    #{ $self }__checkbox-group {
+      @include make-col-offset(4);
+
+      margin-bottom: rem(20px);
+    }
+
     #{ $self }__group > label {
       @include make-col(4);
 
@@ -44,11 +50,9 @@ $input-error-box-shadow: rem(0 0 0 4px) rgba(204, 16, 16, 0.25);
     #{ $self }__control {
       @include make-col(8);
     }
-
   }
 
   &__invalid-feedback {
-    @include make-col(8);
     @include make-col-offset(4);
 
     color: $red-600;
