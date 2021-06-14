@@ -10,7 +10,7 @@
   </head>
   <body class="<%= body_class_name(@conn) %>">
     <header class="app-header">
-      <%= render ElixirSearchExtractorWeb.SharedView, "_app-navbar.html", conn: @conn %>
+      <%= render ElixirSearchExtractorWeb.SharedView, "_app-navbar.html", conn: @conn, current_user: @current_user %>
     </header>
     <main class="app-content">
       <%= render ElixirSearchExtractorWeb.SharedView, "_app-toast.html", conn: @conn %>

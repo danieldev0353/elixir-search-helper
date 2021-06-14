@@ -1,7 +1,1 @@
 <h1>Dashboard!</h1>
-<!-- for better usage, wrap the tabs and contents -->
-<ul>
-  <li><%= @current_user.name %></li>
-  <li><%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %></li>
-  <li><%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %></li>
-</ul>

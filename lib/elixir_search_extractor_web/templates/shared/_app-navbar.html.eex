@@ -2,4 +2,22 @@
   <a href="/">
     <img class="app-navbar__logo" src="<%= Routes.static_path(@conn, "/images/logo.svg") %>" alt="Logo"/>
   </a>
+
+  <%= if @current_user do %>
+    <div class="app-navbar__user">
+      <button class="btn app-navbar__user-avatar" type="button" aria-expanded="false" data-bs-toggle="collapse"
+              data-bs-target="#userMenuToggle">
+        <%= abbreviated_name(@current_user.name) %>
+      </button>
+
+      <div class="collapse app-navbar__user-menu" id="userMenuToggle">
+        <p class="app-navbar__user-name"><%= @current_user.name %></p>
+        <hr class="app-navbar__menu-divider">
+        <div class="app-navbar__menu-action">
+          <a><%= link dgettext("auth", "Settings"), to: Routes.user_settings_path(@conn, :edit) %></a>
+          <a><%= link dgettext("auth", "Log out"), to: Routes.user_session_path(@conn, :delete), method: :delete %></a>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </nav>

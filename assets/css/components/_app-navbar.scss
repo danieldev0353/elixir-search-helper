@@ -1,4 +1,5 @@
 .app-navbar {
+  @extend .navbar;
   @extend .navbar-light;
   @include make-container();
 
@@ -8,6 +9,64 @@
   padding: rem(0 32px);
 
   &__logo {
-    height: 100%;
+    @extend .navbar-brand;
+
+    padding: 0;
+    margin: 0;
+    height: rem(64px);
+  }
+
+  &__user-avatar {
+    font-size: map-get($font-size, 'md');
+    font-weight: map-get($font-weight, 'bold');
+    color: $black;
+    border-color: $primary;
+    border-radius: 50%;
+    box-shadow: inset 0 0 1px $gray-700;
+  }
+
+  &__user-avatar:focus:not(:focus-visible) {
+    color: $black;
+    border-color: $primary;
+    outline: none;
+    box-shadow: inset 0 0 1px $gray-700;
+  }
+
+  .collapsing {
+    transition: none;
+  }
+
+  &__user-menu {
+    @extend .card;
+
+    position: absolute;
+    top: $app-header-height;
+    right: rem(24px);
+    width: auto;
+    min-width: rem(240px);
+    padding: rem(10px);
+    text-align: left;
+    border: 1px solid $gray-500;
+    color: $gray-700;
+  }
+
+  &__user-name {
+    margin: 0;
+  }
+
+  &__menu-divider {
+    color: $primary;
+    opacity: 1;
+  }
+
+  &__menu-action {
+    display: flex;
+    flex-direction: column;
+
+    a {
+      cursor: pointer;
+      text-decoration: none;
+      margin-bottom: rem(10px);
+    }
   }
 }
