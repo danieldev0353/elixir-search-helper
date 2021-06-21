@@ -5,6 +5,20 @@
 
   <%= if @current_user do %>
     <div class="app-navbar__user">
+      <div class="dropdown app-navbar__keyword-files">
+        <a class="dropdown-toggle app-navbar__keyword-file-menu" id="myDropdown"  data-bs-toggle="dropdown"
+           aria-haspopup="true"
+           aria-expanded="false">
+          Keyword Files
+        </a>
+        <div class="dropdown-menu" aria-labelledby="myDropdown">
+          <%= link dgettext("keyword_files", "Upload"), to: Routes.keyword_file_path(@conn, :new),
+           class: "dropdown-item" %>
+          <%= link dgettext("keyword_files", "All Files"),
+           to: Routes.keyword_file_path(@conn, :index), class: "dropdown-item" %>
+        </div>
+      </div>
+
       <button class="btn app-navbar__user-avatar" type="button" aria-expanded="false" data-bs-toggle="collapse"
               data-bs-target="#userMenuToggle">
         <%= abbreviated_name(@current_user.name) %>
@@ -14,8 +28,8 @@
         <p class="app-navbar__user-name"><%= @current_user.name %></p>
         <hr class="app-navbar__menu-divider">
         <div class="app-navbar__menu-action">
-          <a><%= link dgettext("auth", "Settings"), to: Routes.user_settings_path(@conn, :edit) %></a>
-          <a><%= link dgettext("auth", "Log out"), to: Routes.user_session_path(@conn, :delete), method: :delete %></a>
+          <%= link dgettext("auth", "Settings"), to: Routes.user_settings_path(@conn, :edit) %>
+          <%= link dgettext("auth", "Log out"), to: Routes.user_session_path(@conn, :delete), method: :delete %>
         </div>
       </div>
     </div>

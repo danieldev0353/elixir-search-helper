@@ -69,4 +69,14 @@
       margin-bottom: rem(10px);
     }
   }
+
+  &__keyword-files {
+    display: inline-flex;
+    margin-right: rem(20px);
+  }
+
+  &__keyword-file-menu {
+    text-decoration: none;
+    cursor: pointer;
+  }
 }
