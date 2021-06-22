@@ -10,7 +10,7 @@ defmodule ElixirSearchExtractor.FileUpload.KeywordFile do
       default: :pending,
       values: [pending: 0, initialized: 1, failed: 2, completed: 3]
 
-    belongs_to :user, User
+    belongs_to :user, ElixirSearchExtractor.Accounts.User
 
     timestamps()
   end
