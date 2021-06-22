@@ -1,16 +1,9 @@
 defmodule ElixirSearchExtractorWeb.KeywordFileControllerTest do
   use ElixirSearchExtractorWeb.ConnCase
 
-  alias ElixirSearchExtractor.FileUpload
+  import ElixirSearchExtractor.KeywordsFixtures
 
-  @create_attrs %{file_name: "some file_name", name: "some name"}
-  @update_attrs %{file_name: "some updated file_name", name: "some updated name"}
-  @invalid_attrs %{file_name: nil, name: nil}
-
-  def fixture(:keyword_file) do
-    {:ok, keyword_file} = FileUpload.create_keyword_file(@create_attrs)
-    keyword_file
-  end
+  setup :register_and_log_in_user
 
   describe "index" do
     test "lists all keyword_files", %{conn: conn} do
@@ -27,62 +20,36 @@ defmodule ElixirSearchExtractorWeb.KeywordFileControllerTest do
   end
 
   describe "create keyword_file" do
-    test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.keyword_file_path(conn, :create), keyword_file: @create_attrs)
+    test "redirects to index when data is valid", %{conn: conn, user: user} do
+      conn =
+        post(conn, Routes.keyword_file_path(conn, :create),
+          keyword_file: valid_keyword_file_attributes()
+        )
 
-      assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == Routes.keyword_file_path(conn, :show, id)
+      assert redirected_to(conn) == Routes.keyword_file_path(conn, :index)
 
-      conn = get(conn, Routes.keyword_file_path(conn, :show, id))
-      assert html_response(conn, 200) =~ "Show Keyword file"
+      index_conn = get(conn, Routes.keyword_file_path(conn, :index))
+      assert html_response(index_conn, 200) =~ "Listing Keyword files"
+
+      remove_uploaded_files(user.id)
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.keyword_file_path(conn, :create), keyword_file: @invalid_attrs)
+      conn =
+        post(conn, Routes.keyword_file_path(conn, :create),
+          keyword_file: valid_keyword_file_attributes(%{"name" => nil, "csv" => nil})
+        )
+
       assert html_response(conn, 200) =~ "New Keyword file"
     end
-  end
 
-  describe "edit keyword_file" do
-    setup [:create_keyword_file]
+    test "redirects to new when given file is invalid", %{conn: conn} do
+      conn =
+        post(conn, Routes.keyword_file_path(conn, :create),
+          keyword_file: valid_keyword_file_attributes(%{"csv_file" => invalid_extension_file()})
+        )
 
-    test "renders form for editing chosen keyword_file", %{conn: conn, keyword_file: keyword_file} do
-      conn = get(conn, Routes.keyword_file_path(conn, :edit, keyword_file))
-      assert html_response(conn, 200) =~ "Edit Keyword file"
+      assert redirected_to(conn) == Routes.keyword_file_path(conn, :new)
     end
-  end
-
-  describe "update keyword_file" do
-    setup [:create_keyword_file]
-
-    test "redirects when data is valid", %{conn: conn, keyword_file: keyword_file} do
-      conn = put(conn, Routes.keyword_file_path(conn, :update, keyword_file), keyword_file: @update_attrs)
-      assert redirected_to(conn) == Routes.keyword_file_path(conn, :show, keyword_file)
-
-      conn = get(conn, Routes.keyword_file_path(conn, :show, keyword_file))
-      assert html_response(conn, 200) =~ "some updated file_name"
-    end
-
-    test "renders errors when data is invalid", %{conn: conn, keyword_file: keyword_file} do
-      conn = put(conn, Routes.keyword_file_path(conn, :update, keyword_file), keyword_file: @invalid_attrs)
-      assert html_response(conn, 200) =~ "Edit Keyword file"
-    end
-  end
-
-  describe "delete keyword_file" do
-    setup [:create_keyword_file]
-
-    test "deletes chosen keyword_file", %{conn: conn, keyword_file: keyword_file} do
-      conn = delete(conn, Routes.keyword_file_path(conn, :delete, keyword_file))
-      assert redirected_to(conn) == Routes.keyword_file_path(conn, :index)
-      assert_error_sent 404, fn ->
-        get(conn, Routes.keyword_file_path(conn, :show, keyword_file))
-      end
-    end
-  end
-
-  defp create_keyword_file(_) do
-    keyword_file = fixture(:keyword_file)
-    %{keyword_file: keyword_file}
   end
 end

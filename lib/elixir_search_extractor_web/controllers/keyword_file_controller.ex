@@ -15,14 +15,15 @@ defmodule ElixirSearchExtractorWeb.KeywordFileController do
   end
 
   def create(conn, %{"keyword_file" => keyword_file_params}) do
-    case FileUpload.create_keyword_file(conn.assigns.current_user.id, keyword_file_params) do
-      {:ok, keyword_file} ->
+    case FileUpload.create_keyword_file(keyword_file_params, conn.assigns.current_user.id) do
+      {:ok, _} ->
         conn
         |> put_flash(:info, "Uploaded successfully.")
         |> redirect(to: Routes.keyword_file_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
+
       {:error, reason} ->
         conn
         |> put_flash(:error, reason)

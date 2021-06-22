@@ -5,7 +5,10 @@ defmodule ElixirSearchExtractor.FileUpload.KeywordFile do
   schema "keyword_files" do
     field :csv_file, :string
     field :name, :string
-    field :status, Ecto.Enum, values: [pending: 0, initialized: 1, failed: 2, completed: 3]
+
+    field :status, Ecto.Enum,
+      default: :pending,
+      values: [pending: 0, initialized: 1, failed: 2, completed: 3]
 
     belongs_to :user, User
 
