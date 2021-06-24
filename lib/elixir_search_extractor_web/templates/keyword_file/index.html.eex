@@ -7,26 +7,26 @@
 
 <div class="card-report">
 	<%= unless Enum.empty?(@keyword_files) do %>
-	<table class="table table-bordered text-center">
-		<thead>
-		<tr>
-			<th>Name</th>
-			<th>Csv file</th>
-		</tr>
-		</thead>
-		<tbody>
-		<%= for keyword_file <- @keyword_files do %>
-		<tr>
-			<td><%= keyword_file.name %></td>
-			<td><%= keyword_file.csv_file %></td>
-		</tr>
-		<% end %>
-		</tbody>
-	</table>
-	<div class="card-report__pagination">
-		<%= render ElixirSearchExtractorWeb.SharedView, "_pagination.html", conn: @conn, pagination: @pagination %>
-	</div>
+		<table class="table table-bordered text-center">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Csv file</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%= for keyword_file <- @keyword_files do %>
+					<tr>
+						<td><%= keyword_file.name %></td>
+						<td><%= keyword_file.csv_file %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<div class="card-report__pagination">
+			<%= render ElixirSearchExtractorWeb.SharedView, "_pagination.html", conn: @conn, pagination: @pagination %>
+		</div>
 	<% else %>
-	<h4 class="card-report__no-data"><%= dgettext("keyword_file", "No files uploaded yet!") %></h4>
+		<h4 class="card-report__no-data"><%= dgettext("keyword_file", "No files uploaded yet!") %></h4>
 	<% end %>
 </div>
