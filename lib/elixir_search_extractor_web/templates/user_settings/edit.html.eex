@@ -1,6 +1,6 @@
-<div class="card-auth">
-  <div class="card-auth__form">
-    <div class="card-auth__title">
+<div class="card-form-group">
+  <div class="card-form-group__form">
+    <div class="card-form-group__title">
       <h4><%= dgettext("auth", "Change password!") %></h4>
     </div>
 
@@ -27,10 +27,10 @@
         <%= error_tag f, :current_password %>
       </div>
 
-      <%= submit dgettext("auth", "Change password"), class: "btn btn--primary card-auth__button" %>
+      <%= submit dgettext("auth", "Change password"), class: "btn btn--primary card-form-group__button" %>
     <% end %>
 
-    <div class="card-auth__footer">
+    <div class="card-form-group__footer">
       <%= dgettext("auth", "Go back to") %> <%= link "Dashboard!", to: Routes.page_path(@conn, :index) %>
     </div>
   </div>

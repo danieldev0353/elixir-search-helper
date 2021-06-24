@@ -5,8 +5,14 @@ defmodule ElixirSearchExtractor.FileUpload do
   alias ElixirSearchExtractor.FileUpload.KeywordFile
   alias ElixirSearchExtractor.Repo
 
-  def list_keyword_files do
-    Repo.all(KeywordFile)
+  def paginated_user_keyword_files(user, params \\ %{}) do
+    user
+    |> query_user_keyword_files
+    |> Repo.paginate(params)
+  end
+
+  defp query_user_keyword_files(user) do
+    where(KeywordFile, [k], k.user_id == ^user.id)
   end
 
   def create_keyword_file(attributes, user_id) do

@@ -1,0 +1,9 @@
+.card-report {
+  @extend .card;
+
+  padding: rem(30px);
+
+  &__pagination {
+    margin-left: auto;
+  }
+}
