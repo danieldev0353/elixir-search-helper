@@ -66,6 +66,7 @@ defmodule ElixirSearchExtractor.FileUpload do
     end
   end
 
+  # sobelow_skip ["Traversal"]
   defp upload_file({status, _} = changeset, user_id, csv) do
     case status do
       :ok ->

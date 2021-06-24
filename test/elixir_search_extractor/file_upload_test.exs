@@ -1,22 +1,23 @@
 defmodule ElixirSearchExtractor.FileUploadTest do
-  use ElixirSearchExtractor.DataCase
+  use ElixirSearchExtractor.DataCase, async: true
 
   import ElixirSearchExtractor.KeywordsFixtures
   import ElixirSearchExtractor.AccountsFixtures
   alias ElixirSearchExtractor.FileUpload
+  alias ElixirSearchExtractor.FileUpload.KeywordFile
 
-  describe "keyword_files" do
-    alias ElixirSearchExtractor.FileUpload.KeywordFile
-
-    test "list_keyword_files/0 returns all keyword_files" do
+  describe "list_keyword_files/0" do
+    test "returns all keyword_files" do
       user = user_fixture()
       keyword_file = keyword_file_fixture(user.id)
       assert FileUpload.list_keyword_files() == [keyword_file]
 
       remove_uploaded_files(user.id)
     end
+  end
 
-    test "create_keyword_file/2 with valid data creates a keyword_file" do
+  describe "create_keyword_file/2 " do
+    test "valid data creates a keyword_file" do
       user = user_fixture()
 
       assert {:ok, %KeywordFile{} = keyword_file} =
@@ -30,7 +31,7 @@ defmodule ElixirSearchExtractor.FileUploadTest do
       remove_uploaded_files(user.id)
     end
 
-    test "create_keyword_file/2 with invalid data returns error changeset" do
+    test "invalid data returns error changeset" do
       user = user_fixture()
 
       assert {:error, %Ecto.Changeset{}} =
@@ -40,7 +41,7 @@ defmodule ElixirSearchExtractor.FileUploadTest do
                )
     end
 
-    test "create_keyword_file/2 with invalid CSV exceeding 1MB in size returns error with reason" do
+    test "invalid CSV exceeding 1MB in size returns error with reason" do
       user = user_fixture()
 
       assert {:error, reason} =
@@ -52,7 +53,7 @@ defmodule ElixirSearchExtractor.FileUploadTest do
       assert reason == "File size must me less than 1MB!"
     end
 
-    test "create_keyword_file/2 with no file given returns error with reason" do
+    test "returns error with reason when no file is given" do
       user = user_fixture()
 
       assert {:error, reason} =
@@ -64,7 +65,7 @@ defmodule ElixirSearchExtractor.FileUploadTest do
       assert reason == "A CSV file must be uploaded!"
     end
 
-    test "create_keyword_file/2 with file with invalid extension returns error with reason" do
+    test "file with invalid extension returns error with reason" do
       user = user_fixture()
 
       assert {:error, reason} =
@@ -75,8 +76,10 @@ defmodule ElixirSearchExtractor.FileUploadTest do
 
       assert reason == "File must be a CSV!"
     end
+  end
 
-    test "change_keyword_file/1 returns a keyword_file changeset" do
+  describe "change_keyword_file/1 " do
+    test "returns a keyword_file changeset" do
       user = user_fixture()
       keyword_file = keyword_file_fixture(user.id)
       assert %Ecto.Changeset{} = FileUpload.change_keyword_file(keyword_file)
