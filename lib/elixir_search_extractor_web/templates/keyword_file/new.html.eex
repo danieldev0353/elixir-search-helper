@@ -1,23 +1,27 @@
 <div class="card-form-group">
-  <div class="card-form-group__form">
-    <div class="card-form-group__title">
-      <h4><%= dgettext("keyword_file", "Upload keyword file!") %></h4>
-    </div>
-    <%= form_for @changeset, Routes.keyword_file_path(@conn, :create), [multipart: true, class: "form form--horizontal"], fn f -> %>
-    <div class="form__group required">
-      <%= label f, :name, dgettext("keyword_file", "Name") %>
-      <%= text_input f, :name, required: true, class: "form__control" %>
-      <%= error_tag f, :name %>
-    </div>
-    <div class="form__group required">
-      <%= label f, :csv_file, dgettext("keyword_file", "File") %>
-      <%= file_input f, :csv_file, required: true, class: "form__control" %>
-      <%= error_tag f, :csv_file %>
-    </div>
-    <%= submit dgettext("keyword_file", "Upload"), class: "btn btn--primary card-form-group__button" %>
-  <% end %>
-  <div class="card-form-group__footer">
-    <%= dgettext("auth", "Go back to") %> <%= link "Dashboard!", to: Routes.page_path(@conn, :index) %>
-  </div>
-</div>
+	<div class="card-form-group__form">
+		<div class="card-form-group__title">
+			<h4><%= dgettext("keyword_file", "Upload keyword file!") %></h4>
+		</div>
+		<%= form_for @changeset, Routes.keyword_file_path(@conn, :create), [multipart: true, class: "form form--horizontal"], fn f -> %>
+
+		<div class="form__group required">
+			<%= label f, :name, dgettext("keyword_file", "Name") %>
+			<%= text_input f, :name, required: true, class: "form__control" %>
+			<%= error_tag f, :name %>
+		</div>
+
+		<div class="form__group required">
+			<%= label f, :csv_file, dgettext("keyword_file", "File") %>
+			<%= file_input f, :csv_file, required: true, class: "form__control" %>
+			<%= error_tag f, :csv_file %>
+		</div>
+
+		<%= submit dgettext("keyword_file", "Upload"), class: "btn btn--primary card-form-group__button" %>
+		<% end %>
+
+		<div class="card-form-group__footer">
+			<%= dgettext("auth", "Go back to") %> <%= link "Dashboard!", to: Routes.page_path(@conn, :index) %>
+		</div>
+	</div>
 </div>
