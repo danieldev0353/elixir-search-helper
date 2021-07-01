@@ -5,7 +5,6 @@
     </div>
 
     <%= form_for @password_changeset, Routes.user_settings_path(@conn, :update), [class: "form form--horizontal"], fn f -> %>
-
       <%= hidden_input f, :action, name: "action", value: "update_password" %>
 
       <div class="form__group required">
@@ -22,8 +21,12 @@
 
       <div class="form__group required">
         <%= label f, :current_password, dgettext("auth", "Current password"), for: "current_password_for_password" %>
-        <%= password_input f, :current_password, required: true, name: "current_password",
-            id: "current_password_for_password", class: "form__control" %>
+        <%= password_input(f, :current_password,
+              required: true,
+              name: "current_password",
+              id: "current_password_for_password",
+              class: "form__control"
+            ) %>
         <%= error_tag f, :current_password %>
       </div>
 

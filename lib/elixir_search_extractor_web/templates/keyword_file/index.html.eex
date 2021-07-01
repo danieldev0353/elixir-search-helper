@@ -1,32 +1,31 @@
 <div class="page-header">
-	<div class="page-header__title"><%= dgettext("keyword_file", "Listing Keyword Files") %></div>
-	<div class="page-header__action">
-		<%= link dgettext("keyword_file", "New Keyword file"), to: Routes.keyword_file_path(@conn, :new), class: "btn btn--primary" %>
-	</div>
+  <div class="page-header__title"><%= dgettext("keyword_file", "Listing Keyword Files") %></div>
+  <div class="page-header__action">
+    <%= link dgettext("keyword_file", "New Keyword file"), to: Routes.keyword_file_path(@conn, :new), class: "btn btn--primary" %>
+  </div>
 </div>
-
 <div class="card-report">
-	<%= unless Enum.empty?(@keyword_files) do %>
-	<table class="table table-bordered text-center">
-		<thead>
-		<tr>
-			<th>Name</th>
-			<th>Csv file</th>
-		</tr>
-		</thead>
-		<tbody>
-		<%= for keyword_file <- @keyword_files do %>
-		<tr>
-			<td><%= keyword_file.name %></td>
-			<td><%= keyword_file.csv_file %></td>
-		</tr>
-		<% end %>
-		</tbody>
-	</table>
-	<div class="card-report__pagination">
-		<%= render ElixirSearchExtractorWeb.SharedView, "_pagination.html", conn: @conn, pagination: @pagination %>
-	</div>
-	<% else %>
-	<h4 class="card-report__no-data"><%= dgettext("keyword_file", "No files uploaded yet!") %></h4>
-	<% end %>
+  <%= unless Enum.empty?(@keyword_files) do %>
+    <table class="table table-bordered text-center">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Csv file</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for keyword_file <- @keyword_files do %>
+          <tr>
+            <td><%= keyword_file.name %></td>
+            <td><%= keyword_file.csv_file %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="card-report__pagination">
+      <%= render ElixirSearchExtractorWeb.SharedView, "_pagination.html", conn: @conn, pagination: @pagination %>
+    </div>
+  <% else %>
+    <h4 class="card-report__no-data"><%= dgettext("keyword_file", "No files uploaded yet!") %></h4>
+  <% end %>
 </div>

@@ -7,9 +7,9 @@
   <% end %>
 
   <%= unless is_nil(get_flash(@conn, :error)) do %>
-  <div class="alert alert-danger fade show app-toast__alert">
-    <p class="app-toast__message"><%= get_flash(@conn, :error) %></p>
-    <a class="app-toast__close-btn" data-bs-dismiss="alert" aria-label="close">&times;</a>
-  </div>
+    <div class="alert alert-danger fade show app-toast__alert">
+      <p class="app-toast__message"><%= get_flash(@conn, :error) %></p>
+      <a class="app-toast__close-btn" data-bs-dismiss="alert" aria-label="close">&times;</a>
+    </div>
   <% end %>
 </div>
