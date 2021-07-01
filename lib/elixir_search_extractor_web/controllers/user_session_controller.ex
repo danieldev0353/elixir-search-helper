@@ -1,7 +1,7 @@
 defmodule ElixirSearchExtractorWeb.UserSessionController do
   use ElixirSearchExtractorWeb, :controller
 
-  alias ElixirSearchExtractor.Accounts
+  alias ElixirSearchExtractor.Account.Accounts
   alias ElixirSearchExtractorWeb.UserAuth
 
   def new(conn, _params) do

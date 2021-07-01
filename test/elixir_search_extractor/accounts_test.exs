@@ -2,8 +2,8 @@ defmodule ElixirSearchExtractor.AccountsTest do
   use ElixirSearchExtractor.DataCase
 
   import ElixirSearchExtractor.AccountsFixtures
-  alias ElixirSearchExtractor.Accounts
-  alias ElixirSearchExtractor.Accounts.{User, UserToken}
+  alias ElixirSearchExtractor.Account.Accounts
+  alias ElixirSearchExtractor.Account.Schemas.{User, UserToken}
 
   describe "get_user_by_email/1" do
     test "does not return the user if the email does not exist" do

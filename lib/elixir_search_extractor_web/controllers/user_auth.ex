@@ -2,7 +2,7 @@ defmodule ElixirSearchExtractorWeb.UserAuth do
   import Plug.Conn
   import Phoenix.Controller
 
-  alias ElixirSearchExtractor.Accounts
+  alias ElixirSearchExtractor.Account.Accounts
   alias ElixirSearchExtractorWeb.Router.Helpers, as: Routes
 
   # Make the remember me cookie valid for 60 days.

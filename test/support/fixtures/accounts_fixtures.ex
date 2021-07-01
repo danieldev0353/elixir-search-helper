@@ -21,7 +21,7 @@ defmodule ElixirSearchExtractor.AccountsFixtures do
     {:ok, user} =
       attrs
       |> valid_user_attributes()
-      |> ElixirSearchExtractor.Accounts.register_user()
+      |> ElixirSearchExtractor.Account.Accounts.register_user()
 
     user
   end

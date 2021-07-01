@@ -1,11 +1,11 @@
-defmodule ElixirSearchExtractor.Accounts do
+defmodule ElixirSearchExtractor.Account.Accounts do
   @moduledoc """
   The Accounts context.
   """
 
   import Ecto.Query, warn: false
   alias ElixirSearchExtractor.Repo
-  alias ElixirSearchExtractor.Accounts.{User, UserToken}
+  alias ElixirSearchExtractor.Account.Schemas.{User, UserToken}
 
   ## Database getters
 
