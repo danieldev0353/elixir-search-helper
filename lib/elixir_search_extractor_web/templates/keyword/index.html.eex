@@ -1,0 +1,42 @@
+<h1>Listing Keywords</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Top ads count</th>
+      <th>Top ads urls</th>
+      <th>Total ads count</th>
+      <th>Result count</th>
+      <th>Result urls</th>
+      <th>Total links count</th>
+      <th>Html</th>
+      <th>Status</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for keyword <- @keywords do %>
+    <tr>
+      <td><%= keyword.title %></td>
+      <td><%= keyword.top_ads_count %></td>
+      <td><%= keyword.top_ads_urls %></td>
+      <td><%= keyword.total_ads_count %></td>
+      <td><%= keyword.result_count %></td>
+      <td><%= keyword.result_urls %></td>
+      <td><%= keyword.total_links_count %></td>
+      <td><%= keyword.html %></td>
+      <td><%= keyword.status %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.keyword_path(@conn, :show, keyword) %></span>
+        <span><%= link "Edit", to: Routes.keyword_path(@conn, :edit, keyword) %></span>
+        <span><%= link "Delete", to: Routes.keyword_path(@conn, :delete, keyword), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Keyword", to: Routes.keyword_path(@conn, :new) %></span>

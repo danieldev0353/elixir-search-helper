@@ -11,6 +11,7 @@ defmodule ElixirSearchExtractor.FileUpload.Schemas.KeywordFile do
       values: [pending: 0, initialized: 1, failed: 2, completed: 3]
 
     belongs_to :user, ElixirSearchExtractor.Account.Schemas.User
+    has_many :keywords, ElixirSearchExtractor.SearchKeywords.Keyword
 
     timestamps()
   end
