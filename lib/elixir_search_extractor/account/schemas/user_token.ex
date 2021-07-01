@@ -24,7 +24,11 @@ defmodule ElixirSearchExtractor.Account.Schemas.UserToken do
     token = :crypto.strong_rand_bytes(@rand_size)
 
     {token,
-     %ElixirSearchExtractor.Account.Schemas.UserToken{token: token, context: "session", user_id: user.id}}
+     %ElixirSearchExtractor.Account.Schemas.UserToken{
+       token: token,
+       context: "session",
+       user_id: user.id
+     }}
   end
 
   @doc """
