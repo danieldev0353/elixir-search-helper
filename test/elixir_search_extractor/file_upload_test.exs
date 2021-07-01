@@ -8,11 +8,9 @@ defmodule ElixirSearchExtractor.FileUploadTest do
 
   describe "list_keyword_files/0" do
     test "returns all keyword_files" do
-      user = user_fixture()
-      keyword_file = keyword_file_fixture(user.id)
-      assert FileUpload.list_keyword_files() == [keyword_file]
+      keyword_file = insert(:keyword_file)
 
-      remove_uploaded_files(user.id)
+      assert FileUpload.list_keyword_files() == [keyword_file]
     end
   end
 
@@ -50,7 +48,7 @@ defmodule ElixirSearchExtractor.FileUploadTest do
                  user.id
                )
 
-      assert reason == "File size must me less than 1MB!"
+      assert reason == "File size must be less than 1MB!"
     end
 
     test "returns error with reason when no file is given" do
@@ -80,11 +78,9 @@ defmodule ElixirSearchExtractor.FileUploadTest do
 
   describe "change_keyword_file/1 " do
     test "returns a keyword_file changeset" do
-      user = user_fixture()
-      keyword_file = keyword_file_fixture(user.id)
-      assert %Ecto.Changeset{} = FileUpload.change_keyword_file(keyword_file)
+      keyword_file = insert(:keyword_file)
 
-      remove_uploaded_files(user.id)
+      assert %Ecto.Changeset{} = FileUpload.change_keyword_file(keyword_file)
     end
   end
 end

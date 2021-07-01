@@ -5,7 +5,7 @@
 
   <%= if @current_user do %>
     <div class="app-navbar__user">
-      <div class="dropdown app-navbar__keyword-files">
+      <div class="dropdown app-navbar__keyword-file">
         <a class="dropdown-toggle app-navbar__keyword-file-menu" id="myDropdown"  data-bs-toggle="dropdown"
            aria-haspopup="true"
            aria-expanded="false">

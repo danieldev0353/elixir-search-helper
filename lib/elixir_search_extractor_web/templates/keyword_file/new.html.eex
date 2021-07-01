@@ -1,5 +1,5 @@
 <h1>New Keyword file</h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.keyword_file_path(@conn, :create)) %>
+<%= render "_form.html", Map.put(assigns, :action, Routes.keyword_file_path(@conn, :create)) %>
 
 <span><%= link "Back", to: Routes.keyword_file_path(@conn, :index) %></span>
