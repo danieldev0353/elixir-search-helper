@@ -1,6 +1,4 @@
 defmodule ElixirSearchExtractor.FileUpload.CsvValidator do
-  import Ecto.Query, warn: false
-
   def validate_file(csv) do
     with :ok <- validate_file_presence(csv),
          :ok <- validate_file_size(csv),

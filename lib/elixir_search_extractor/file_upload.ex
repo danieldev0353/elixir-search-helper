@@ -1,6 +1,5 @@
 defmodule ElixirSearchExtractor.FileUpload do
-  import Ecto.Query, warn: false
-
+  alias Ecto.Multi
   alias ElixirSearchExtractor.FileUpload.CsvUploader
   alias ElixirSearchExtractor.FileUpload.CsvValidator
   alias ElixirSearchExtractor.FileUpload.KeywordFile
@@ -14,14 +13,29 @@ defmodule ElixirSearchExtractor.FileUpload do
     csv_file = attributes["csv_file"]
 
     with :ok <- CsvValidator.validate_file(csv_file),
-         {:ok, upload_file_path} <- CsvUploader.upload_file(user_id, csv_file),
-         {:ok, refactored_attributes} <-
-           refactor_attributes(attributes, user_id, upload_file_path),
-         {:ok, changeset} <- create_record(refactored_attributes) do
-      validate_changeset(changeset)
+         {:ok, upload_path} <- CsvUploader.upload_file_path(user_id, csv_file),
+         {:ok, refactored_attributes} <- refactor_attributes(attributes, user_id, upload_path),
+         {:ok, %{create_keyword_file: keyword_file}} <-
+           Repo.transaction(create_and_upload_file_multi(csv_file, refactored_attributes)) do
+      {:ok, keyword_file}
     else
-      {:error, reason} -> {:error, reason}
+      {:error, :create_keyword_file, changeset, _} ->
+        {:error, changeset}
+
+      {:error, :upload_keyword_file, reason, _} ->
+        {:error, reason}
+
+      {:error, reason} ->
+        {:error, reason}
     end
+  end
+
+  def create_and_upload_file_multi(csv_file, attributes) do
+    Multi.new()
+    |> Multi.insert(:create_keyword_file, KeywordFile.changeset(%KeywordFile{}, attributes))
+    |> Multi.run(:upload_keyword_file, fn _, _ ->
+      CsvUploader.upload_file(csv_file, attributes["csv_file"])
+    end)
   end
 
   defp refactor_attributes(attributes, user_id, upload_file_path) do
@@ -33,28 +47,7 @@ defmodule ElixirSearchExtractor.FileUpload do
     {:ok, refactored_attributes}
   end
 
-  defp create_record(attributes) do
-    changeset =
-      %KeywordFile{}
-      |> KeywordFile.changeset(attributes)
-      |> Repo.insert()
-
-    {:ok, changeset}
-  end
-
   def change_keyword_file(%KeywordFile{} = keyword_file, attrs \\ %{}) do
     KeywordFile.changeset(keyword_file, attrs)
-  end
-
-  defp validate_changeset({status, attributes_data} = changeset) do
-    case status do
-      :error ->
-        CsvUploader.remove_uploaded_file(attributes_data.changes.csv_file)
-
-      _ ->
-        nil
-    end
-
-    changeset
   end
 end
