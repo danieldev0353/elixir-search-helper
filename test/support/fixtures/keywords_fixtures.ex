@@ -29,15 +29,6 @@ defmodule ElixirSearchExtractor.KeywordsFixtures do
     })
   end
 
-  def keyword_file_fixture(user_id, attrs \\ %{}) do
-    {:ok, keyword_file} =
-      attrs
-      |> valid_keyword_file_attributes()
-      |> ElixirSearchExtractor.FileUpload.create_keyword_file(user_id)
-
-    keyword_file
-  end
-
   def remove_uploaded_files(user_id) do
     File.rm_rf("#{File.cwd!()}/keyword_files/user_#{user_id}/")
   end
