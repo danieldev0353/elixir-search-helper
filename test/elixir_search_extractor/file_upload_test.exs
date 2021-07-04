@@ -9,13 +9,13 @@ defmodule ElixirSearchExtractor.FileUploadTest do
   describe "paginated_user_keyword_files/2" do
     test "returns only user's keyword_files" do
       user = user_fixture()
-      user_file = insert(:keyword_file)
+      user_file = insert(:keyword_file, user: user)
 
       {keywords, _} = FileUpload.paginated_user_keyword_files(user, %{page: 1})
-      assert length(keywords) == 1
-      assert List.first(keywords).id == user_file.id
 
-      remove_uploaded_files(user.id)
+      assert length(keywords) == 1
+
+      assert List.first(keywords).id == user_file.id
     end
   end
 
