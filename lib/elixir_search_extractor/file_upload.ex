@@ -1,8 +1,6 @@
 defmodule ElixirSearchExtractor.FileUpload do
   alias Ecto.Multi
-  alias ElixirSearchExtractor.FileUpload.CsvUploader
-  alias ElixirSearchExtractor.FileUpload.CsvValidator
-  alias ElixirSearchExtractor.FileUpload.KeywordFile
+  alias ElixirSearchExtractor.FileUpload.{CsvUploader, CsvValidator, KeywordFile}
   alias ElixirSearchExtractor.FileUpload.Queries.KeywordFileQuery
   alias ElixirSearchExtractor.Repo
 
