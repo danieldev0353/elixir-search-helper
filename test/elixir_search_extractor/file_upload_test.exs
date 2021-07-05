@@ -10,6 +10,7 @@ defmodule ElixirSearchExtractor.FileUploadTest do
     test "returns only user's keyword_files" do
       user = user_fixture()
       user_file = insert(:keyword_file, user: user)
+      insert(:keyword_file)
 
       {keywords, _} = FileUpload.paginated_user_keyword_files(user, %{page: 1})
 
