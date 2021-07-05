@@ -1,4 +1,4 @@
-defmodule ElixirSearchExtractor.SearchKeywords do
+defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
   @moduledoc """
   The SearchKeywords context.
   """
@@ -6,7 +6,7 @@ defmodule ElixirSearchExtractor.SearchKeywords do
   import Ecto.Query, warn: false
   alias ElixirSearchExtractor.Repo
 
-  alias ElixirSearchExtractor.SearchKeywords.Keyword
+  alias ElixirSearchExtractor.SearchKeywords.Schemas.Keyword
 
   def list_keywords do
     Repo.all(Keyword)
@@ -23,5 +23,4 @@ defmodule ElixirSearchExtractor.SearchKeywords do
     |> Keyword.changeset(attrs)
     |> Repo.update()
   end
-
 end

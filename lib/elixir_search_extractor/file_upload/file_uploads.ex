@@ -52,4 +52,12 @@ defmodule ElixirSearchExtractor.FileUpload.FileUploads do
 
     {:ok, refactored_attributes}
   end
+
+  defp process_file({_, file_record} = changeset) do
+    %{file_record_id: file_record.id}
+    |> CsvParserWorker.new()
+    |> Oban.insert()
+
+    changeset
+  end
 end

@@ -6,9 +6,39 @@ defmodule ElixirSearchExtractor.SearchKeywordsTest do
   describe "keywords" do
     alias ElixirSearchExtractor.SearchKeywords.Keyword
 
-    @valid_attrs %{html: "some html", result_count: 42, result_urls: [], status: 42, title: "some title", top_ads_count: 42, top_ads_urls: [], total_ads_count: 42, total_links_count: 42}
-    @update_attrs %{html: "some updated html", result_count: 43, result_urls: [], status: 43, title: "some updated title", top_ads_count: 43, top_ads_urls: [], total_ads_count: 43, total_links_count: 43}
-    @invalid_attrs %{html: nil, result_count: nil, result_urls: nil, status: nil, title: nil, top_ads_count: nil, top_ads_urls: nil, total_ads_count: nil, total_links_count: nil}
+    @valid_attrs %{
+      html: "some html",
+      result_count: 42,
+      result_urls: [],
+      status: 42,
+      title: "some title",
+      top_ads_count: 42,
+      top_ads_urls: [],
+      total_ads_count: 42,
+      total_links_count: 42
+    }
+    @update_attrs %{
+      html: "some updated html",
+      result_count: 43,
+      result_urls: [],
+      status: 43,
+      title: "some updated title",
+      top_ads_count: 43,
+      top_ads_urls: [],
+      total_ads_count: 43,
+      total_links_count: 43
+    }
+    @invalid_attrs %{
+      html: nil,
+      result_count: nil,
+      result_urls: nil,
+      status: nil,
+      title: nil,
+      top_ads_count: nil,
+      top_ads_urls: nil,
+      total_ads_count: nil,
+      total_links_count: nil
+    }
 
     def keyword_fixture(attrs \\ %{}) do
       {:ok, keyword} =
@@ -60,6 +90,5 @@ defmodule ElixirSearchExtractor.SearchKeywordsTest do
       assert {:error, %Ecto.Changeset{}} = SearchKeywords.update_keyword(keyword, @invalid_attrs)
       assert keyword == SearchKeywords.get_keyword!(keyword.id)
     end
-
   end
 end

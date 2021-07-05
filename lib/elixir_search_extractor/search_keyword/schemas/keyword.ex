@@ -1,4 +1,4 @@
-defmodule ElixirSearchExtractor.SearchKeywords.Keyword do
+defmodule ElixirSearchExtractor.SearchKeywords.Schemas.Keyword do
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -21,7 +21,27 @@ defmodule ElixirSearchExtractor.SearchKeywords.Keyword do
   @doc false
   def changeset(keyword, attrs) do
     keyword
-    |> cast(attrs, [:title, :top_ads_count, :top_ads_urls, :total_ads_count, :result_count, :result_urls, :total_links_count, :html, :status])
-    |> validate_required([:title, :top_ads_count, :top_ads_urls, :total_ads_count, :result_count, :result_urls, :total_links_count, :html, :status])
+    |> cast(attrs, [
+      :title,
+      :top_ads_count,
+      :top_ads_urls,
+      :total_ads_count,
+      :result_count,
+      :result_urls,
+      :total_links_count,
+      :html,
+      :status
+    ])
+    |> validate_required([
+      :title,
+      :top_ads_count,
+      :top_ads_urls,
+      :total_ads_count,
+      :result_count,
+      :result_urls,
+      :total_links_count,
+      :html,
+      :status
+    ])
   end
 end
