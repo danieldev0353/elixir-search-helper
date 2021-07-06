@@ -53,7 +53,7 @@ defmodule ElixirSearchExtractor.FileUpload.FileUploads do
 
   defp refactor_attributes(attributes, user_id, csv_file) do
     upload_file_path = CsvUploader.upload_file_path(user_id, csv_file)
-IO.inspect(upload_file_path)
+
     refactored_attributes =
       attributes
       |> Map.put("csv_file", upload_file_path)

@@ -7,7 +7,10 @@ defmodule ElixirSearchExtractor.FileUpload.CsvParser do
   def parse(keyword_file) do
     with {:ok, keyword_list} <- extract_keywords(keyword_file.csv_file) do
       Enum.each(keyword_list, fn keyword ->
-        SearchKeywords.save_keyword(keyword, keyword_file.id)
+        SearchKeywords.create_keyword(%{
+          title: keyword,
+          keyword_file_id: keyword_file.id
+        })
       end)
     end
 
