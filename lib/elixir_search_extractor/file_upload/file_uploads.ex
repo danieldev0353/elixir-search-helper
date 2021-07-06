@@ -1,5 +1,6 @@
 defmodule ElixirSearchExtractor.FileUpload.FileUploads do
   alias Ecto.Multi
+  alias ElixirSearchExtractor.ElixirSearchExtractorWorker.CsvParserWorker
   alias ElixirSearchExtractor.FileUpload.{CsvUploader, CsvValidator, KeywordFile}
   alias ElixirSearchExtractor.FileUpload.Queries.KeywordFileQuery
   alias ElixirSearchExtractor.FileUpload.Schemas.KeywordFile
@@ -15,10 +16,10 @@ defmodule ElixirSearchExtractor.FileUpload.FileUploads do
     csv_file = attributes["csv_file"]
 
     with :ok <- CsvValidator.validate_file(csv_file),
-         {:ok, upload_path} <- CsvUploader.upload_file_path(user_id, csv_file),
-         {:ok, refactored_attributes} <- refactor_attributes(attributes, user_id, upload_path),
+         {:ok, refactored_attributes} <- refactor_attributes(attributes, user_id, csv_file),
          {:ok, %{create_keyword_file: keyword_file}} <-
-           Repo.transaction(create_and_upload_file_multi(csv_file, refactored_attributes)) do
+           Repo.transaction(create_and_upload_file_multi(csv_file, refactored_attributes)),
+         :ok <- extract_keywords(keyword_file) do
       {:ok, keyword_file}
     else
       {:error, :create_keyword_file, changeset, _} ->
@@ -30,6 +31,12 @@ defmodule ElixirSearchExtractor.FileUpload.FileUploads do
       {:error, reason} ->
         {:error, reason}
     end
+  end
+
+  def completed(keyword_file) do
+    keyword_file
+    |> KeywordFile.complete_changeset()
+    |> Repo.update!()
   end
 
   def change_keyword_file(%KeywordFile{} = keyword_file, attrs \\ %{}) do
@@ -44,7 +51,9 @@ defmodule ElixirSearchExtractor.FileUpload.FileUploads do
     end)
   end
 
-  defp refactor_attributes(attributes, user_id, upload_file_path) do
+  defp refactor_attributes(attributes, user_id, csv_file) do
+    upload_file_path = CsvUploader.upload_file_path(user_id, csv_file)
+IO.inspect(upload_file_path)
     refactored_attributes =
       attributes
       |> Map.put("csv_file", upload_file_path)
@@ -53,11 +62,11 @@ defmodule ElixirSearchExtractor.FileUpload.FileUploads do
     {:ok, refactored_attributes}
   end
 
-  defp process_file({_, file_record} = changeset) do
-    %{file_record_id: file_record.id}
+  defp extract_keywords(keyword_file) do
+    %{file_record_id: keyword_file.id}
     |> CsvParserWorker.new()
     |> Oban.insert()
 
-    changeset
+    :ok
   end
 end

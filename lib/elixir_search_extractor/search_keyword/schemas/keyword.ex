@@ -1,4 +1,4 @@
-defmodule ElixirSearchExtractor.SearchKeywords.Schemas.Keyword do
+defmodule ElixirSearchExtractor.SearchKeyword.Schemas.Keyword do
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -13,7 +13,7 @@ defmodule ElixirSearchExtractor.SearchKeywords.Schemas.Keyword do
     field :total_ads_count, :integer, null: false, default: 0
     field :total_links_count, :integer, null: false, default: 0
 
-    belongs_to :keyword_file, ElixirSearchExtractor.FileUpload.KeywordFile
+    belongs_to :keyword_file, ElixirSearchExtractor.FileUpload.Schemas.KeywordFile
 
     timestamps()
   end
@@ -30,18 +30,16 @@ defmodule ElixirSearchExtractor.SearchKeywords.Schemas.Keyword do
       :result_urls,
       :total_links_count,
       :html,
-      :status
+      :status,
+      :keyword_file_id
     ])
     |> validate_required([
       :title,
-      :top_ads_count,
-      :top_ads_urls,
-      :total_ads_count,
-      :result_count,
-      :result_urls,
-      :total_links_count,
-      :html,
-      :status
+      :keyword_file_id
     ])
+  end
+
+  def complete_changeset(keyword) do
+    change(keyword, %{status: :completed})
   end
 end

@@ -10,9 +10,7 @@ defmodule ElixirSearchExtractor.FileUpload.CsvUploader do
   end
 
   def upload_file_path(user_id, csv) do
-    path = "#{upload_directory(user_id)}#{DateTime.to_unix(DateTime.utc_now())}-#{csv.filename}"
-
-    {:ok, path}
+    "#{upload_directory(user_id)}#{DateTime.to_unix(DateTime.utc_now())}-#{csv.filename}"
   end
 
   # sobelow_skip ["Traversal"]

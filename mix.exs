@@ -66,7 +66,9 @@ defmodule ElixirSearchExtractor.MixProject do
       {:phx_gen_auth, "~> 0.7", only: :dev, runtime: false},
       {:phoenix_pagination, "~> 0.7.0"},
       {:floki, "~> 0.31.0"},
-      {:httpoison, "~> 1.8"}
+      {:httpoison, "~> 1.8"},
+      {:nimble_csv, "~> 1.1"},
+      {:faker, "~> 0.16", only: :test}
     ]
   end
 

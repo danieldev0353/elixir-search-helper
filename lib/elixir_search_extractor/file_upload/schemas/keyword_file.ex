@@ -11,7 +11,7 @@ defmodule ElixirSearchExtractor.FileUpload.Schemas.KeywordFile do
       values: [pending: 0, initialized: 1, failed: 2, completed: 3]
 
     belongs_to :user, ElixirSearchExtractor.Account.Schemas.User
-    has_many :keywords, ElixirSearchExtractor.SearchKeywords.Schemas.Keyword
+    has_many :keywords, ElixirSearchExtractor.SearchKeyword.Schemas.Keyword
 
     timestamps()
   end
@@ -20,5 +20,9 @@ defmodule ElixirSearchExtractor.FileUpload.Schemas.KeywordFile do
     keyword_file
     |> cast(attrs, [:name, :csv_file, :user_id])
     |> validate_required([:name, :csv_file, :user_id])
+  end
+
+  def complete_changeset(keyword_file) do
+    change(keyword_file, %{status: :completed})
   end
 end
