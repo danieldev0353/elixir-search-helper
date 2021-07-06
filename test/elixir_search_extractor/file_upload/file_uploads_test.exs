@@ -1,4 +1,4 @@
-defmodule ElixirSearchExtractor.FileUploadTest do
+defmodule ElixirSearchExtractor.FileUpload.FileUploadsTest do
   use ElixirSearchExtractor.DataCase, async: true
 
   import ElixirSearchExtractor.KeywordsFixtures
