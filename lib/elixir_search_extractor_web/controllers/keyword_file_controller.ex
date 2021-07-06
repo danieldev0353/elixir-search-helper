@@ -4,9 +4,11 @@ defmodule ElixirSearchExtractorWeb.KeywordFileController do
   alias ElixirSearchExtractor.FileUpload
   alias ElixirSearchExtractor.FileUpload.KeywordFile
 
-  def index(conn, _params) do
-    keyword_files = FileUpload.list_keyword_files()
-    render(conn, "index.html", keyword_files: keyword_files)
+  def index(conn, params) do
+    {keyword_files, pagination} =
+      FileUpload.paginated_user_keyword_files(conn.assigns.current_user, params)
+
+    render(conn, "index.html", keyword_files: keyword_files, pagination: pagination)
   end
 
   def new(conn, _params) do

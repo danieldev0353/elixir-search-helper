@@ -6,11 +6,17 @@ defmodule ElixirSearchExtractor.FileUploadTest do
   alias ElixirSearchExtractor.FileUpload
   alias ElixirSearchExtractor.FileUpload.KeywordFile
 
-  describe "list_keyword_files/0" do
-    test "returns all keyword_files" do
-      keyword_file = insert(:keyword_file)
+  describe "paginated_user_keyword_files/2" do
+    test "returns only user's keyword_files" do
+      user = user_fixture()
+      user_file = insert(:keyword_file, user: user)
+      insert(:keyword_file)
 
-      assert FileUpload.list_keyword_files() == [keyword_file]
+      {keywords, _} = FileUpload.paginated_user_keyword_files(user, %{page: 1})
+
+      assert length(keywords) == 1
+
+      assert List.first(keywords).id == user_file.id
     end
   end
 

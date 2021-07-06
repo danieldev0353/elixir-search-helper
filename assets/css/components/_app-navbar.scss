@@ -39,6 +39,7 @@
   &__user-menu {
     @extend .card;
 
+    z-index: 1;
     position: absolute;
     top: $app-header-height;
     right: rem(24px);

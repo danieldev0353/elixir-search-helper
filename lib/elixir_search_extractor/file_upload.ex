@@ -1,12 +1,13 @@
 defmodule ElixirSearchExtractor.FileUpload do
   alias Ecto.Multi
-  alias ElixirSearchExtractor.FileUpload.CsvUploader
-  alias ElixirSearchExtractor.FileUpload.CsvValidator
-  alias ElixirSearchExtractor.FileUpload.KeywordFile
+  alias ElixirSearchExtractor.FileUpload.{CsvUploader, CsvValidator, KeywordFile}
+  alias ElixirSearchExtractor.FileUpload.Queries.KeywordFileQuery
   alias ElixirSearchExtractor.Repo
 
-  def list_keyword_files do
-    Repo.all(KeywordFile)
+  def paginated_user_keyword_files(user, params \\ %{}) do
+    user
+    |> KeywordFileQuery.user_keyword_files()
+    |> Repo.paginate(params)
   end
 
   def create_keyword_file(attributes, user_id) do
@@ -30,7 +31,11 @@ defmodule ElixirSearchExtractor.FileUpload do
     end
   end
 
-  def create_and_upload_file_multi(csv_file, attributes) do
+  def change_keyword_file(%KeywordFile{} = keyword_file, attrs \\ %{}) do
+    KeywordFile.changeset(keyword_file, attrs)
+  end
+
+  defp create_and_upload_file_multi(csv_file, attributes) do
     Multi.new()
     |> Multi.insert(:create_keyword_file, KeywordFile.changeset(%KeywordFile{}, attributes))
     |> Multi.run(:upload_keyword_file, fn _, _ ->
@@ -45,9 +50,5 @@ defmodule ElixirSearchExtractor.FileUpload do
       |> Map.put("user_id", user_id)
 
     {:ok, refactored_attributes}
-  end
-
-  def change_keyword_file(%KeywordFile{} = keyword_file, attrs \\ %{}) do
-    KeywordFile.changeset(keyword_file, attrs)
   end
 end

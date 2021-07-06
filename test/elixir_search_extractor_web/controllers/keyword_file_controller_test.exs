@@ -8,14 +8,14 @@ defmodule ElixirSearchExtractorWeb.KeywordFileControllerTest do
   describe "index" do
     test "lists all keyword_files", %{conn: conn} do
       conn = get(conn, Routes.keyword_file_path(conn, :index))
-      assert html_response(conn, 200) =~ "Listing Keyword files"
+      assert html_response(conn, 200) =~ "Listing Keyword Files"
     end
   end
 
   describe "new keyword_file" do
     test "renders form", %{conn: conn} do
       conn = get(conn, Routes.keyword_file_path(conn, :new))
-      assert html_response(conn, 200) =~ "New Keyword file"
+      assert html_response(conn, 200) =~ "Upload keyword file!"
     end
   end
 
@@ -29,7 +29,7 @@ defmodule ElixirSearchExtractorWeb.KeywordFileControllerTest do
       assert redirected_to(conn) == Routes.keyword_file_path(conn, :index)
 
       index_conn = get(conn, Routes.keyword_file_path(conn, :index))
-      assert html_response(index_conn, 200) =~ "Listing Keyword files"
+      assert html_response(index_conn, 200) =~ "Listing Keyword Files"
 
       remove_uploaded_files(user.id)
     end
@@ -40,7 +40,7 @@ defmodule ElixirSearchExtractorWeb.KeywordFileControllerTest do
           keyword_file: valid_keyword_file_attributes(%{"name" => nil, "csv" => nil})
         )
 
-      assert html_response(conn, 200) =~ "New Keyword file"
+      assert html_response(conn, 200) =~ "Upload keyword file!"
     end
 
     test "redirects to new when given file is invalid", %{conn: conn} do

@@ -8,5 +8,6 @@
   .app-content {
     flex: 1;
     background: map-get($brand-gray, 'light');
+    padding: rem(40px);
   }
 }
