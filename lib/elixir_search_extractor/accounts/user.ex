@@ -10,6 +10,8 @@ defmodule ElixirSearchExtractor.Accounts.User do
     field :hashed_password, :string
     field :confirmed_at, :naive_datetime
 
+    has_many(:keyword_files, ElixirSearchExtractor.FileUpload.KeywordFile)
+
     timestamps()
   end
 

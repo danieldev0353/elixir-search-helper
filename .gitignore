@@ -38,3 +38,6 @@ npm-debug.log
 
 # Misc
 .idea/
+
+# Upload path
+keyword_files/

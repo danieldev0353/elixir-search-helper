@@ -1,0 +1,28 @@
+<h1>Listing Keyword files</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Csv file</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for keyword_file <- @keyword_files do %>
+    <tr>
+      <td><%= keyword_file.name %></td>
+      <td><%= keyword_file.csv_file %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.keyword_file_path(@conn, :show, keyword_file) %></span>
+        <span><%= link "Edit", to: Routes.keyword_file_path(@conn, :edit, keyword_file) %></span>
+        <span><%= link "Delete", to: Routes.keyword_file_path(@conn, :delete, keyword_file), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Keyword file", to: Routes.keyword_file_path(@conn, :new) %></span>

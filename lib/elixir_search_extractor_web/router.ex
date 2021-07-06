@@ -50,6 +50,8 @@ defmodule ElixirSearchExtractorWeb.Router do
     get "/", PageController, :index
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
+
+    resources "/keyword_files", KeywordFileController
   end
 
   scope "/", ElixirSearchExtractorWeb do
