@@ -1,10 +1,10 @@
-defmodule ElixirSearchExtractor.FileUploadTest do
+defmodule ElixirSearchExtractor.FileUpload.FileUploadsTest do
   use ElixirSearchExtractor.DataCase, async: true
 
   import ElixirSearchExtractor.KeywordsFixtures
   import ElixirSearchExtractor.AccountsFixtures
-  alias ElixirSearchExtractor.FileUpload
-  alias ElixirSearchExtractor.FileUpload.KeywordFile
+  alias ElixirSearchExtractor.FileUpload.FileUploads
+  alias ElixirSearchExtractor.FileUpload.Schemas.KeywordFile
 
   describe "paginated_user_keyword_files/2" do
     test "returns only user's keyword_files" do
@@ -12,7 +12,7 @@ defmodule ElixirSearchExtractor.FileUploadTest do
       user_file = insert(:keyword_file, user: user)
       insert(:keyword_file)
 
-      {keywords, _} = FileUpload.paginated_user_keyword_files(user, %{page: 1})
+      {keywords, _} = FileUploads.paginated_user_keyword_files(user, %{page: 1})
 
       assert length(keywords) == 1
 
@@ -25,7 +25,7 @@ defmodule ElixirSearchExtractor.FileUploadTest do
       user = user_fixture()
 
       assert {:ok, %KeywordFile{} = keyword_file} =
-               FileUpload.create_keyword_file(
+               FileUploads.create_keyword_file(
                  valid_keyword_file_attributes(),
                  user.id
                )
@@ -39,7 +39,7 @@ defmodule ElixirSearchExtractor.FileUploadTest do
       user = user_fixture()
 
       assert {:error, %Ecto.Changeset{}} =
-               FileUpload.create_keyword_file(
+               FileUploads.create_keyword_file(
                  valid_keyword_file_attributes(%{"name" => nil, "csv_file" => valid_csv_file()}),
                  user.id
                )
@@ -49,7 +49,7 @@ defmodule ElixirSearchExtractor.FileUploadTest do
       user = user_fixture()
 
       assert {:error, reason} =
-               FileUpload.create_keyword_file(
+               FileUploads.create_keyword_file(
                  valid_keyword_file_attributes(%{"csv_file" => large_csv_file()}),
                  user.id
                )
@@ -61,7 +61,7 @@ defmodule ElixirSearchExtractor.FileUploadTest do
       user = user_fixture()
 
       assert {:error, reason} =
-               FileUpload.create_keyword_file(
+               FileUploads.create_keyword_file(
                  valid_keyword_file_attributes(%{"csv_file" => nil}),
                  user.id
                )
@@ -73,7 +73,7 @@ defmodule ElixirSearchExtractor.FileUploadTest do
       user = user_fixture()
 
       assert {:error, reason} =
-               FileUpload.create_keyword_file(
+               FileUploads.create_keyword_file(
                  valid_keyword_file_attributes(%{"csv_file" => invalid_extension_file()}),
                  user.id
                )
@@ -86,7 +86,7 @@ defmodule ElixirSearchExtractor.FileUploadTest do
     test "returns a keyword_file changeset" do
       keyword_file = insert(:keyword_file)
 
-      assert %Ecto.Changeset{} = FileUpload.change_keyword_file(keyword_file)
+      assert %Ecto.Changeset{} = FileUploads.change_keyword_file(keyword_file)
     end
   end
 end

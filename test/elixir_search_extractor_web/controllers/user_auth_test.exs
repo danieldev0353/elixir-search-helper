@@ -2,7 +2,7 @@ defmodule ElixirSearchExtractorWeb.UserAuthTest do
   use ElixirSearchExtractorWeb.ConnCase, async: true
 
   import ElixirSearchExtractor.AccountsFixtures
-  alias ElixirSearchExtractor.Accounts
+  alias ElixirSearchExtractor.Account.Accounts
   alias ElixirSearchExtractorWeb.UserAuth
 
   @remember_me_cookie "_elixir_search_extractor_web_user_remember_me"

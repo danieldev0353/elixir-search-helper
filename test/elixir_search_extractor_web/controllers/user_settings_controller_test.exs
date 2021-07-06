@@ -2,7 +2,7 @@ defmodule ElixirSearchExtractorWeb.UserSettingsControllerTest do
   use ElixirSearchExtractorWeb.ConnCase, async: true
 
   import ElixirSearchExtractor.AccountsFixtures
-  alias ElixirSearchExtractor.Accounts
+  alias ElixirSearchExtractor.Account.Accounts
 
   setup :register_and_log_in_user
 

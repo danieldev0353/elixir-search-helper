@@ -23,7 +23,8 @@
       </tbody>
     </table>
     <div class="card-report__pagination">
-      <%= render ElixirSearchExtractorWeb.SharedView, "_pagination.html", conn: @conn, pagination: @pagination %></div>
+      <%= render ElixirSearchExtractorWeb.SharedView, "_pagination.html", conn: @conn, pagination: @pagination %>
+    </div>
   <% else %>
     <h4 class="card-report__no-data"><%= dgettext("keyword_file", "No files uploaded yet!") %></h4>
   <% end %>

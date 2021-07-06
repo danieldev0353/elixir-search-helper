@@ -18,6 +18,7 @@ defmodule ElixirSearchExtractorWeb.ConnCase do
   use ExUnit.CaseTemplate
 
   alias Ecto.Adapters.SQL.Sandbox
+  alias ElixirSearchExtractor.Account.Accounts
 
   using do
     quote do
@@ -65,7 +66,7 @@ defmodule ElixirSearchExtractorWeb.ConnCase do
   It returns an updated `conn`.
   """
   def log_in_user(conn, user) do
-    token = ElixirSearchExtractor.Accounts.generate_user_session_token(user)
+    token = Accounts.generate_user_session_token(user)
 
     conn
     |> Phoenix.ConnTest.init_test_session(%{})

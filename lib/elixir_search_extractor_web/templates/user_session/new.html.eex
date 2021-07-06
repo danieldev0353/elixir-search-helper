@@ -6,13 +6,13 @@
 
     <%= form_for @conn, Routes.user_session_path(@conn, :create), [as: :user, class: "form form--horizontal"], fn f -> %>
       <div class="form__group required">
-        <%= label f, :email, dgettext("auth", "Email")  %>
+        <%= label f, :email, dgettext("auth", "Email") %>
         <%= email_input f, :email, required: true, class: "form__control" %>
         <%= error_tag f, :email %>
       </div>
 
       <div class="form__group required">
-        <%= label f, :password, dgettext("auth", "Password")  %>
+        <%= label f, :password, dgettext("auth", "Password") %>
         <%= password_input f, :password, required: true, class: "form__control" %>
         <%= error_tag f, :password %>
       </div>
@@ -26,7 +26,8 @@
     <% end %>
 
     <div class="card-form-group__footer">
-      <%= dgettext("auth", "Create an account") %> <%= link "Register", to: Routes.user_registration_path(@conn, :new) %>
+      <%= dgettext("auth", "Create an account") %>
+      <%= link "Register", to: Routes.user_registration_path(@conn, :new) %>
     </div>
   </div>
 </div>

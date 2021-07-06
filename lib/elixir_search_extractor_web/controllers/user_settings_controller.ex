@@ -1,7 +1,7 @@
 defmodule ElixirSearchExtractorWeb.UserSettingsController do
   use ElixirSearchExtractorWeb, :controller
 
-  alias ElixirSearchExtractor.Accounts
+  alias ElixirSearchExtractor.Account.Accounts
   alias ElixirSearchExtractorWeb.UserAuth
 
   plug :assign_password_changesets

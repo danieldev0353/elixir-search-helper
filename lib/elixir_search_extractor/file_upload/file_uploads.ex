@@ -1,7 +1,8 @@
-defmodule ElixirSearchExtractor.FileUpload do
+defmodule ElixirSearchExtractor.FileUpload.FileUploads do
   alias Ecto.Multi
   alias ElixirSearchExtractor.FileUpload.{CsvUploader, CsvValidator, KeywordFile}
   alias ElixirSearchExtractor.FileUpload.Queries.KeywordFileQuery
+  alias ElixirSearchExtractor.FileUpload.Schemas.KeywordFile
   alias ElixirSearchExtractor.Repo
 
   def paginated_user_keyword_files(user, params \\ %{}) do

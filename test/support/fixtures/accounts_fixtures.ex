@@ -4,6 +4,8 @@ defmodule ElixirSearchExtractor.AccountsFixtures do
   entities via the `ElixirSearchExtractor.Accounts` context.
   """
 
+  alias ElixirSearchExtractor.Account.Accounts
+
   def valid_user_name, do: "Test User"
   def unique_user_email, do: "user#{System.unique_integer()}@example.com"
   def valid_user_password, do: "hello world!"
@@ -21,7 +23,7 @@ defmodule ElixirSearchExtractor.AccountsFixtures do
     {:ok, user} =
       attrs
       |> valid_user_attributes()
-      |> ElixirSearchExtractor.Accounts.register_user()
+      |> Accounts.register_user()
 
     user
   end
