@@ -1,5 +1,5 @@
 defmodule ElixirSearchExtractor.SearchKeyword.GoogleSearcherTest do
-  use ElixirSearchExtractor.DataCase, async: true
+  use ElixirSearchExtractor.DataCase
 
   alias ElixirSearchExtractor.SearchKeyword.GoogleSearcher
 

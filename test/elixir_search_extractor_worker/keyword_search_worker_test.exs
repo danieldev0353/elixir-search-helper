@@ -1,5 +1,5 @@
 defmodule ElixirSearchExtractorWorker.CsvKeywordsProcessingWorkerTest do
-  use ElixirSearchExtractor.DataCase, async: true
+  use ElixirSearchExtractor.DataCase
 
   alias ElixirSearchExtractor.ElixirSearchExtractorWorker.KeywordSearchWorker
 
