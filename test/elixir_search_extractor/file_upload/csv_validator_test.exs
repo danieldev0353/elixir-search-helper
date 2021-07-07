@@ -1,7 +1,7 @@
 defmodule ElixirSearchExtractor.FileUpload.CsvValidatorTest do
   use ElixirSearchExtractor.DataCase, async: true
 
-  import ElixirSearchExtractor.KeywordsFixtures
+  import ElixirSearchExtractor.KeywordFileFixtures
   alias ElixirSearchExtractor.FileUpload.CsvValidator
 
   describe "validate_file/1" do

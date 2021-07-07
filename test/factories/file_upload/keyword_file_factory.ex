@@ -4,7 +4,7 @@ defmodule ElixirSearchExtractor.FileUpload.KeywordFileFactory do
       def keyword_file_factory do
         %ElixirSearchExtractor.FileUpload.Schemas.KeywordFile{
           name: "Test",
-          csv_file: "test.csv",
+          csv_file: "test/support/fixtures/csv_files/valid_keywords.csv",
           status: :pending
         }
       end

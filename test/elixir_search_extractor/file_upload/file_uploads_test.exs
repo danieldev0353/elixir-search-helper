@@ -1,7 +1,7 @@
 defmodule ElixirSearchExtractor.FileUpload.FileUploadsTest do
   use ElixirSearchExtractor.DataCase, async: true
 
-  import ElixirSearchExtractor.KeywordsFixtures
+  import ElixirSearchExtractor.KeywordFileFixtures
   import ElixirSearchExtractor.AccountsFixtures
   alias ElixirSearchExtractor.FileUpload.FileUploads
   alias ElixirSearchExtractor.FileUpload.Schemas.KeywordFile
@@ -87,6 +87,16 @@ defmodule ElixirSearchExtractor.FileUpload.FileUploadsTest do
       keyword_file = insert(:keyword_file)
 
       assert %Ecto.Changeset{} = FileUploads.change_keyword_file(keyword_file)
+    end
+  end
+
+  describe "completed/1" do
+    test "changes the keyword status to completed" do
+      keyword_file = insert(:keyword_file)
+
+      assert changeset = FileUploads.completed(keyword_file)
+
+      assert changeset.status == :completed
     end
   end
 end

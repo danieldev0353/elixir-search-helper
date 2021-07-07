@@ -1,7 +1,7 @@
 defmodule ElixirSearchExtractor.FileUpload.CsvUploaderTest do
   use ElixirSearchExtractor.DataCase, async: true
 
-  import ElixirSearchExtractor.KeywordsFixtures
+  import ElixirSearchExtractor.KeywordFileFixtures
   import ElixirSearchExtractor.AccountsFixtures
   alias ElixirSearchExtractor.FileUpload.CsvUploader
 

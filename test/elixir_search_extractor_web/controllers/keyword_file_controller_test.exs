@@ -1,7 +1,7 @@
 defmodule ElixirSearchExtractorWeb.KeywordFileControllerTest do
   use ElixirSearchExtractorWeb.ConnCase, async: true
 
-  import ElixirSearchExtractor.KeywordsFixtures
+  import ElixirSearchExtractor.KeywordFileFixtures
 
   setup :register_and_log_in_user
 

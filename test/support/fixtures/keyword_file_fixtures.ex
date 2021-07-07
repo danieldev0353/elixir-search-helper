@@ -1,24 +1,25 @@
-defmodule ElixirSearchExtractor.KeywordsFixtures do
+defmodule ElixirSearchExtractor.KeywordFileFixtures do
   def valid_file_name, do: "Test File"
+  def csv_directory, do: "#{File.cwd!()}/test/support/fixtures/csv_files"
 
   def valid_csv_file,
     do: %Plug.Upload{
       content_type: "text/csv",
-      path: "#{File.cwd!()}/test/support/fixtures/csv_files/valid_keywords.csv",
+      path: "#{csv_directory()}/valid_keywords.csv",
       filename: "valid.csv"
     }
 
   def large_csv_file,
     do: %Plug.Upload{
       content_type: "text/csv",
-      path: "#{File.cwd!()}/test/support/fixtures/csv_files/large_file.csv",
+      path: "#{csv_directory()}/large_file.csv",
       filename: "large.csv"
     }
 
   def invalid_extension_file,
     do: %Plug.Upload{
       content_type: "text/csv",
-      path: "#{File.cwd!()}/test/support/fixtures/csv_files/invalid_extension.png",
+      path: "#{csv_directory()}/invalid_extension.png",
       filename: "invalid.png"
     }
 
