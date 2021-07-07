@@ -9,7 +9,8 @@ defmodule ElixirSearchExtractor.ElixirSearchExtractorWorker.KeywordSearchWorker 
   def perform(%Oban.Job{args: %{"keyword_id" => keyword_id}}) do
     keyword_record = Repo.get_by!(Keyword, %{id: keyword_id})
 
-    with :ok <- GoogleSearcher.initiate_search(keyword_record) do
+    with {:ok, attributes} <- GoogleSearcher.search(keyword_record),
+         :ok <- SearchKeywords.update_keyword(keyword_record, attributes) do
       SearchKeywords.completed(keyword_record)
     end
 

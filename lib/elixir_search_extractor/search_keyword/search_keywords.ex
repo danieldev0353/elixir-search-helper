@@ -5,20 +5,15 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
   alias ElixirSearchExtractor.SearchKeywords.Errors.KeywordNotCreatedError
   alias ElixirSearchExtractor.SearchKeywords.Errors.KeywordNotUpdatedError
 
-  def list_keywords do
-    Repo.all(Keyword)
-  end
+  def store_keywords(keyword_list, keyword_file_id) do
+    Enum.each(keyword_list, fn keyword ->
+      create_keyword(%{
+        title: keyword,
+        keyword_file_id: keyword_file_id
+      })
+    end)
 
-  def create_keyword(attributes) do
-    case %Keyword{}
-         |> Keyword.changeset(attributes)
-         |> Repo.insert() do
-      {:ok, changeset} ->
-        initiate_searcher(changeset)
-
-      {:error, changeset} ->
-        raise KeywordNotCreatedError, message: changeset
-    end
+    :ok
   end
 
   def update_keyword(%Keyword{} = keyword, attrs) do
@@ -45,5 +40,17 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
     |> Oban.insert()
 
     :ok
+  end
+
+  defp create_keyword(attributes) do
+    case %Keyword{}
+         |> Keyword.changeset(attributes)
+         |> Repo.insert() do
+      {:ok, changeset} ->
+        initiate_searcher(changeset)
+
+      {:error, changeset} ->
+        raise KeywordNotCreatedError, message: changeset
+    end
   end
 end

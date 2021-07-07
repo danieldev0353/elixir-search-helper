@@ -1,6 +1,6 @@
 defmodule ElixirSearchExtractor.FileUpload.FileUploads do
   alias Ecto.Multi
-  alias ElixirSearchExtractor.ElixirSearchExtractorWorker.CsvParserWorker
+  alias ElixirSearchExtractor.ElixirSearchExtractorWorker.CsvKeywordsProcessingWorker
   alias ElixirSearchExtractor.FileUpload.{CsvUploader, CsvValidator, KeywordFile}
   alias ElixirSearchExtractor.FileUpload.Queries.KeywordFileQuery
   alias ElixirSearchExtractor.FileUpload.Schemas.KeywordFile
@@ -64,7 +64,7 @@ defmodule ElixirSearchExtractor.FileUpload.FileUploads do
 
   defp extract_keywords(keyword_file) do
     %{file_record_id: keyword_file.id}
-    |> CsvParserWorker.new()
+    |> CsvKeywordsProcessingWorker.new()
     |> Oban.insert()
 
     :ok
