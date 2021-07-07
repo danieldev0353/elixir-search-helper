@@ -1,4 +1,4 @@
-defmodule ElixirSearchExtractor.AccountsTest do
+defmodule ElixirSearchExtractor.Account.AccountsTest do
   use ElixirSearchExtractor.DataCase
 
   import ElixirSearchExtractor.AccountsFixtures
