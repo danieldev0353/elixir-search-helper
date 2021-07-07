@@ -36,7 +36,7 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
 
   defp initiate_searcher(changeset) do
     %{keyword_id: changeset.id}
-    |> KeywordSearchWorker.new()
+    |> KeywordSearchWorker.new(schedule_in: :rand.uniform(100))
     |> Oban.insert()
 
     :ok
