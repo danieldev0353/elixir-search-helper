@@ -11,7 +11,7 @@ defmodule ElixirSearchExtractor.SearchKeyword.HtmlParser do
   def parse(html) do
     {_, document} = Floki.parse_document(html)
 
-    %{
+    attributes = %{
       top_ads_count: top_ads_count(document),
       top_ads_urls: top_ads_urls(document),
       total_ads_count: total_ads_count(document),
@@ -20,6 +20,8 @@ defmodule ElixirSearchExtractor.SearchKeyword.HtmlParser do
       total_links_count: total_links_count(document),
       html: html
     }
+
+    {:ok, attributes}
   end
 
   defp total_links_count(document) do

@@ -1,5 +1,5 @@
 defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
-  alias ElixirSearchExtractor.ElixirSearchExtractorWorker.KeywordSearchWorker
+  alias ElixirSearchExtractorWorker.KeywordSearchWorker
   alias ElixirSearchExtractor.Repo
   alias ElixirSearchExtractor.SearchKeyword.Schemas.Keyword
   alias ElixirSearchExtractor.SearchKeywords.Errors.{KeywordNotCreatedError, KeywordNotUpdatedError}
@@ -12,7 +12,7 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
       })
     end)
 
-    :ok
+    {:ok, keyword_list}
   end
 
   def update_keyword(%Keyword{} = keyword, attrs) do

@@ -1,14 +1,11 @@
 defmodule ElixirSearchExtractor.SearchKeyword.GoogleSearcher do
-  alias ElixirSearchExtractor.SearchKeyword.HtmlParser
-
   @user_agent "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.447"
   @google_search_url "https://www.google.com/search"
 
   def search(keyword) do
     response = make_request(keyword.title)
-    attributes = HtmlParser.parse(response.body)
 
-    {:ok, attributes}
+    {:ok, response.body}
   end
 
   defp make_request(keyword) do

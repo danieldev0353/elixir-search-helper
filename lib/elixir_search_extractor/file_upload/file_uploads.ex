@@ -1,6 +1,6 @@
 defmodule ElixirSearchExtractor.FileUpload.FileUploads do
   alias Ecto.Multi
-  alias ElixirSearchExtractor.ElixirSearchExtractorWorker.KeywordParseWorker
+  alias ElixirSearchExtractorWorker.KeywordParseWorker
   alias ElixirSearchExtractor.FileUpload.{CsvUploader, CsvValidator, KeywordFile}
   alias ElixirSearchExtractor.FileUpload.Queries.KeywordFileQuery
   alias ElixirSearchExtractor.FileUpload.Schemas.KeywordFile
@@ -34,9 +34,12 @@ defmodule ElixirSearchExtractor.FileUpload.FileUploads do
   end
 
   def mark_keyword_file_as_completed(keyword_file) do
-    keyword_file
-    |> KeywordFile.complete_changeset()
-    |> Repo.update!()
+    changeset =
+      keyword_file
+      |> KeywordFile.complete_changeset()
+      |> Repo.update!()
+
+    {:ok, changeset}
   end
 
   def change_keyword_file(%KeywordFile{} = keyword_file, attrs \\ %{}) do
