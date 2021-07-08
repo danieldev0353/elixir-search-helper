@@ -1,6 +1,6 @@
 defmodule ElixirSearchExtractor.FileUpload.FileUploads do
   alias Ecto.Multi
-  alias ElixirSearchExtractor.ElixirSearchExtractorWorker.CsvKeywordsProcessingWorker
+  alias ElixirSearchExtractor.ElixirSearchExtractorWorker.KeywordParseWorker
   alias ElixirSearchExtractor.FileUpload.{CsvUploader, CsvValidator, KeywordFile}
   alias ElixirSearchExtractor.FileUpload.Queries.KeywordFileQuery
   alias ElixirSearchExtractor.FileUpload.Schemas.KeywordFile
@@ -19,7 +19,7 @@ defmodule ElixirSearchExtractor.FileUpload.FileUploads do
          {:ok, refactored_attributes} <- refactor_attributes(attributes, user_id, csv_file),
          {:ok, %{create_keyword_file: keyword_file}} <-
            Repo.transaction(create_and_upload_file_multi(csv_file, refactored_attributes)),
-         :ok <- extract_keywords(keyword_file) do
+         :ok <- enque_keyword_parsing_job(keyword_file) do
       {:ok, keyword_file}
     else
       {:error, :create_keyword_file, changeset, _} ->
@@ -33,7 +33,7 @@ defmodule ElixirSearchExtractor.FileUpload.FileUploads do
     end
   end
 
-  def completed(keyword_file) do
+  def mark_keyword_file_as_completed(keyword_file) do
     keyword_file
     |> KeywordFile.complete_changeset()
     |> Repo.update!()
@@ -62,9 +62,9 @@ defmodule ElixirSearchExtractor.FileUpload.FileUploads do
     {:ok, refactored_attributes}
   end
 
-  defp extract_keywords(keyword_file) do
-    %{file_record_id: keyword_file.id}
-    |> CsvKeywordsProcessingWorker.new()
+  defp enque_keyword_parsing_job(keyword_file) do
+    %{keyword_file_id: keyword_file.id}
+    |> KeywordParseWorker.new()
     |> Oban.insert()
 
     :ok

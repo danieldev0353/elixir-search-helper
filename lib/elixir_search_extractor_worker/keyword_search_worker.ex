@@ -1,4 +1,4 @@
-defmodule ElixirSearchExtractor.ElixirSearchExtractorWorker.KeywordSearchWorker do
+defmodule ElixirSearchExtractorWorker.KeywordSearchWorker do
   use Oban.Worker
   alias ElixirSearchExtractor.Repo
   alias ElixirSearchExtractor.SearchKeyword.GoogleSearcher

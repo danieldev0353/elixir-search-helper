@@ -2,12 +2,11 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
   alias ElixirSearchExtractor.ElixirSearchExtractorWorker.KeywordSearchWorker
   alias ElixirSearchExtractor.Repo
   alias ElixirSearchExtractor.SearchKeyword.Schemas.Keyword
-  alias ElixirSearchExtractor.SearchKeywords.Errors.KeywordNotCreatedError
-  alias ElixirSearchExtractor.SearchKeywords.Errors.KeywordNotUpdatedError
+  alias ElixirSearchExtractor.SearchKeywords.Errors.{KeywordNotCreatedError, KeywordNotUpdatedError}
 
   def store_keywords(keyword_list, keyword_file_id) do
     Enum.each(keyword_list, fn keyword ->
-      create_keyword(%{
+      create_keyword_and_initiate_search(%{
         title: keyword,
         keyword_file_id: keyword_file_id
       })
@@ -17,9 +16,10 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
   end
 
   def update_keyword(%Keyword{} = keyword, attrs) do
-    case keyword
-         |> Keyword.changeset(attrs)
-         |> Repo.update() do
+    keyword
+    |> Keyword.changeset(attrs)
+    |> Repo.update()
+    |> case do
       {:ok, _} ->
         :ok
 
@@ -34,15 +34,7 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
     |> Repo.update!()
   end
 
-  defp initiate_searcher(changeset) do
-    %{keyword_id: changeset.id}
-    |> KeywordSearchWorker.new(schedule_in: :rand.uniform(100))
-    |> Oban.insert()
-
-    :ok
-  end
-
-  defp create_keyword(attributes) do
+  defp create_keyword_and_initiate_search(attributes) do
     case %Keyword{}
          |> Keyword.changeset(attributes)
          |> Repo.insert() do
@@ -52,5 +44,13 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
       {:error, changeset} ->
         raise KeywordNotCreatedError, message: changeset
     end
+  end
+
+  defp initiate_searcher(changeset) do
+    %{keyword_id: changeset.id}
+    |> KeywordSearchWorker.new(schedule_in: :rand.uniform(100))
+    |> Oban.insert()
+
+    :ok
   end
 end
