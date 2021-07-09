@@ -1,7 +1,7 @@
 defmodule ElixirSearchExtractorWorker.CsvKeywordsProcessingWorkerTest do
   use ElixirSearchExtractor.DataCase
 
-  alias ElixirSearchExtractor.ElixirSearchExtractorWorker.KeywordSearchWorker
+  alias ElixirSearchExtractorWorker.KeywordSearchWorker
 
   describe "perform/1" do
     test "updates the keyword record with search results" do

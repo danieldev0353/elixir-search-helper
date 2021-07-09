@@ -8,15 +8,9 @@ defmodule ElixirSearchExtractor.SearchKeyword.GoogleSearcherTest do
       use_cassette "google_search_result" do
         keyword = insert(:keyword, title: "Macbook")
 
-        assert {:ok, attributes} = GoogleSearcher.search(keyword)
+        assert {:ok, html_body} = GoogleSearcher.search(keyword)
 
-        assert attributes.top_ads_count == 1
-        assert attributes.top_ads_urls == ["https://www.apple.com/sg/mac/"]
-        assert attributes.total_ads_count == 1
-        assert attributes.result_count == 9
-        assert Enum.count(attributes.result_urls) == 9
-        assert attributes.total_links_count == 207
-        assert String.contains?(attributes.html, "<!doctype html>")
+        assert String.contains?(html_body, "<!doctype html>")
       end
     end
   end

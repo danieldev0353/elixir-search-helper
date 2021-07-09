@@ -9,7 +9,7 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywordsTest do
     test "with valid data creates keywords from the given keyword list" do
       keyword_file = insert(:keyword_file)
 
-      assert :ok = SearchKeywords.store_keywords(keyword_list(), keyword_file.id)
+      assert {:ok, _} = SearchKeywords.store_keywords(keyword_list(), keyword_file.id)
 
       assert [keyword1, keyword2, keyword3, keyword4] = Repo.all(Keyword)
 
@@ -22,7 +22,7 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywordsTest do
     test "does not create data if empty keyword list is given" do
       keyword_file = insert(:keyword_file)
 
-      assert :ok = SearchKeywords.store_keywords([], keyword_file.id)
+      assert {:ok, []} = SearchKeywords.store_keywords([], keyword_file.id)
 
       assert [] = Repo.all(Keyword)
     end
@@ -60,11 +60,11 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywordsTest do
     end
   end
 
-  describe "completed/1" do
+  describe "mark_keyword_as_completed/1" do
     test "changes the keyword status to completed" do
       keyword = insert(:keyword)
 
-      assert changeset = SearchKeywords.completed(keyword)
+      assert changeset = SearchKeywords.mark_keyword_as_completed(keyword)
 
       assert changeset.status == :completed
     end
