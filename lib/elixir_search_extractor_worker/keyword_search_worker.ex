@@ -11,7 +11,7 @@ defmodule ElixirSearchExtractorWorker.KeywordSearchWorker do
     with {:ok, response_body} <- GoogleSearcher.search(keyword_record),
          {:ok, attributes} <- HtmlParser.parse(response_body),
          :ok <- SearchKeywords.update_keyword(keyword_record, attributes) do
-      SearchKeywords.completed(keyword_record)
+      SearchKeywords.mark_keyword_as_completed(keyword_record)
     end
 
     :ok

@@ -1,15 +1,26 @@
 defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
-  alias ElixirSearchExtractorWorker.KeywordSearchWorker
+  alias Ecto.Multi
   alias ElixirSearchExtractor.Repo
   alias ElixirSearchExtractor.SearchKeyword.Schemas.Keyword
   alias ElixirSearchExtractor.SearchKeywords.Errors.{KeywordNotCreatedError, KeywordNotUpdatedError}
+  alias ElixirSearchExtractorWorker.KeywordSearchWorker
 
   def store_keywords(keyword_list, keyword_file_id) do
     Enum.each(keyword_list, fn keyword ->
-      create_keyword_and_initiate_search(%{
-        title: keyword,
-        keyword_file_id: keyword_file_id
-      })
+      case(
+        Repo.transaction(
+          create_keyword_and_enqueue_search(%{
+            title: keyword,
+            keyword_file_id: keyword_file_id
+          })
+        )
+      ) do
+        {:ok, _} ->
+          :ok
+
+        {:error, :create_keyword, changeset, _} ->
+          raise KeywordNotCreatedError, message: changeset
+      end
     end)
 
     {:ok, keyword_list}
@@ -28,29 +39,25 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
     end
   end
 
-  def completed(keyword) do
+  def mark_keyword_as_completed(keyword) do
     keyword
     |> Keyword.complete_changeset()
     |> Repo.update!()
   end
 
-  defp create_keyword_and_initiate_search(attributes) do
-    case %Keyword{}
-         |> Keyword.changeset(attributes)
-         |> Repo.insert() do
-      {:ok, changeset} ->
-        initiate_searcher(changeset)
-
-      {:error, changeset} ->
-        raise KeywordNotCreatedError, message: changeset
-    end
+  defp create_keyword_and_enqueue_search(attributes) do
+    Multi.new()
+    |> Multi.insert(:create_keyword, Keyword.changeset(%Keyword{}, attributes))
+    |> Multi.run(:enqueue_keyword_searching_job, fn _, %{create_keyword: keyword} ->
+      enqueue_keyword_searching_job(keyword)
+    end)
   end
 
-  defp initiate_searcher(changeset) do
-    %{keyword_id: changeset.id}
+  defp enqueue_keyword_searching_job(keyword) do
+    %{keyword_id: keyword.id}
     |> KeywordSearchWorker.new(schedule_in: :rand.uniform(100))
     |> Oban.insert()
 
-    :ok
+    {:ok, keyword}
   end
 end
