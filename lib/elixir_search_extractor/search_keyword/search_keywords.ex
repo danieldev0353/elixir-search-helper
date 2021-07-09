@@ -2,8 +2,15 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
   alias Ecto.Multi
   alias ElixirSearchExtractor.Repo
   alias ElixirSearchExtractor.SearchKeyword.Schemas.Keyword
-  alias ElixirSearchExtractor.SearchKeywords.Errors.{KeywordNotCreatedError, KeywordNotUpdatedError}
+  alias ElixirSearchExtractor.SearchKeyword.Errors.{KeywordNotCreatedError, KeywordNotUpdatedError}
+  alias ElixirSearchExtractor.SearchKeyword.Queries.KeywordQuery
   alias ElixirSearchExtractorWorker.KeywordSearchWorker
+
+  def paginated_user_keywords(user, params \\ %{}) do
+    user
+    |> KeywordQuery.user_keywords()
+    |> Repo.paginate(params)
+  end
 
   def store_keywords!(keyword_list, keyword_file_id) do
     Enum.each(keyword_list, fn keyword ->

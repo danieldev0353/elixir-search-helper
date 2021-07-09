@@ -1,7 +1,12 @@
 defmodule ElixirSearchExtractorWeb.PageController do
   use ElixirSearchExtractorWeb, :controller
 
-  def index(conn, _params) do
-    render(conn, "index.html")
+  alias ElixirSearchExtractor.SearchKeyword.SearchKeywords
+
+  def index(conn, params) do
+    {keywords, pagination} =
+      SearchKeywords.paginated_user_keywords(conn.assigns.current_user, params)
+
+    render(conn, "index.html", keywords: keywords, pagination: pagination)
   end
 end

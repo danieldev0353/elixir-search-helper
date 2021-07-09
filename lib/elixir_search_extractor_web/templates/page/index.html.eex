@@ -1,1 +1,35 @@
-<h1>Dashboard!</h1>
+<div class="card-report">
+	<%= unless Enum.empty?(@keywords) do %>
+	<table class="table table-bordered text-center">
+		<thead>
+		<tr>
+			<th>Title</th>
+			<th>Top ads</th>
+			<th>Total ads</th>
+			<th>Results</th>
+			<th>Links</th>
+			<th>Status</th>
+			<th>HTML</th>
+		</tr>
+		</thead>
+		<tbody>
+		<%= for keyword <- @keywords do %>
+		<tr>
+			<td><%= keyword.title %></td>
+			<td><%= keyword.top_ads_count %></td>
+			<td><%= keyword.total_ads_count %></td>
+			<td><%= keyword.result_count %></td>
+			<td><%= keyword.total_links_count %></td>
+			<td><%= keyword.status %></td>
+			<td>View</td>
+		</tr>
+		<% end %>
+		</tbody>
+	</table>
+	<div class="card-report__pagination">
+		<%= render ElixirSearchExtractorWeb.SharedView, "_pagination.html", conn: @conn, pagination: @pagination %>
+	</div>
+	<% else %>
+	<h4 class="card-report__no-data"><%= dgettext("keywords", "No keywords uploaded yet!") %></h4>
+	<% end %>
+</div>
