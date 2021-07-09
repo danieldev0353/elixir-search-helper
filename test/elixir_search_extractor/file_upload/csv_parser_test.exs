@@ -1,8 +1,7 @@
 defmodule ElixirSearchExtractor.FileUpload.CsvParserTest do
   use ElixirSearchExtractor.DataCase, async: true
 
-  import ElixirSearchExtractor.KeywordFixtures
-  import ElixirSearchExtractor.KeywordFileFixtures
+  import ElixirSearchExtractor.{KeywordFixtures, KeywordFileFixtures}
   alias ElixirSearchExtractor.FileUpload.CsvParser
 
   describe "parse/1" do

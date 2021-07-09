@@ -1,8 +1,8 @@
 defmodule ElixirSearchExtractorWorker.KeywordParseWorkerTest do
   use ElixirSearchExtractor.DataCase, async: true
 
-  alias ElixirSearchExtractorWorker.KeywordParseWorker
   alias ElixirSearchExtractor.SearchKeyword.Schemas.Keyword
+  alias ElixirSearchExtractorWorker.KeywordParseWorker
 
   describe "perform/1" do
     test "creates the keywords from csv file record" do

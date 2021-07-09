@@ -1,8 +1,7 @@
 defmodule ElixirSearchExtractor.FileUpload.FileUploadsTest do
   use ElixirSearchExtractor.DataCase, async: true
 
-  import ElixirSearchExtractor.KeywordFileFixtures
-  import ElixirSearchExtractor.AccountsFixtures
+  import ElixirSearchExtractor.{AccountsFixtures, KeywordFileFixtures}
   alias ElixirSearchExtractor.FileUpload.FileUploads
   alias ElixirSearchExtractor.FileUpload.Schemas.KeywordFile
 
