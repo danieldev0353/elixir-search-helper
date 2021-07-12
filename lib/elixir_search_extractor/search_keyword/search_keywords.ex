@@ -12,6 +12,10 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
     |> Repo.paginate(params)
   end
 
+  def get_keyword!(keyword_id) do
+    Repo.get_by!(Keyword, %{id: keyword_id})
+  end
+
   def store_keywords!(keyword_list, keyword_file_id) do
     Enum.each(keyword_list, fn keyword ->
       case create_keyword_and_enqueue_search_multi(%{
