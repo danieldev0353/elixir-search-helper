@@ -2,6 +2,6 @@
   <%= if @keyword.status == :completed do %>
     <iframe srcdoc="<%= @keyword.html %>" class="html-view"></iframe>
   <% else %>
-    <h4 class="text-center">No view yet for: <%= @keyword.title %></h4>
+    <h4 class="text-center">No HTML view yet!</h4>
   <% end %>
 </div>

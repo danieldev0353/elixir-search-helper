@@ -24,7 +24,7 @@ defmodule ElixirSearchExtractorWeb.FeatureCase do
         login(session, user_attributes.email, user_attributes.password)
       end
 
-      defp login(session, email, password) do
+      def login(session, email, password) do
         session
         |> visit(Routes.user_session_path(ElixirSearchExtractorWeb.Endpoint, :new))
         |> fill_in(Wallaby.Query.text_field("user_email"), with: email)

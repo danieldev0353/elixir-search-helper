@@ -1,3 +1,7 @@
+<div class="page-header">
+  <div class="page-header__title"><%= dgettext("keyword_report", "Keyword Report") %></div>
+</div>
+
 <div class="card-report">
   <%= unless Enum.empty?(@keywords) do %>
     <table class="table table-bordered text-center">

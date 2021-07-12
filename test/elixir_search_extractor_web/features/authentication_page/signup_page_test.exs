@@ -10,7 +10,7 @@ defmodule ElixirSearchExtractorWeb.AuthenticationPage.SignupPageTest do
   feature "view dashboard after successful sign up", %{session: session} do
     session
     |> signup()
-    |> assert_has(Query.text("Dashboard!"))
+    |> assert_has(Query.text("Keyword Report"))
   end
 
   defp signup(session) do
