@@ -93,9 +93,9 @@ defmodule ElixirSearchExtractor.FileUpload.FileUploadsTest do
     test "changes the keyword status to completed" do
       keyword_file = insert(:keyword_file)
 
-      assert {:ok, changeset} = FileUploads.mark_keyword_file_as_completed(keyword_file)
+      assert {:ok, updated_keyword_file} = FileUploads.mark_keyword_file_as_completed(keyword_file)
 
-      assert changeset.status == :completed
+      assert updated_keyword_file.status == :completed
     end
   end
 end

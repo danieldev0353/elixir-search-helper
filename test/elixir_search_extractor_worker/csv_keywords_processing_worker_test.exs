@@ -18,7 +18,7 @@ defmodule ElixirSearchExtractorWorker.KeywordParseWorkerTest do
     end
 
     test "updates the csv file record status to completed" do
-      keyword_file = insert(:keyword_file)
+      keyword_file = insert(:keyword_file, status: :pending)
       KeywordParseWorker.perform(%Oban.Job{args: %{"keyword_file_id" => keyword_file.id}})
       updated_keyword_file = Repo.reload(keyword_file)
 

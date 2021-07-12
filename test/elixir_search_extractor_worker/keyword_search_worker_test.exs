@@ -22,7 +22,7 @@ defmodule ElixirSearchExtractorWorker.CsvKeywordsProcessingWorkerTest do
 
     test "updates the keyword status to completed" do
       use_cassette "google_search_result" do
-        keyword = insert(:keyword)
+        keyword = insert(:keyword, status: :processing)
         KeywordSearchWorker.perform(%Oban.Job{args: %{"keyword_id" => keyword.id}})
         updated_keyword = Repo.reload(keyword)
 
