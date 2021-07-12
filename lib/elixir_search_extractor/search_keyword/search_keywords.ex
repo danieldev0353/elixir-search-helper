@@ -7,13 +7,10 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
 
   def store_keywords!(keyword_list, keyword_file_id) do
     Enum.each(keyword_list, fn keyword ->
-      Repo.transaction(
-        create_keyword_and_enqueue_search(%{
-          title: keyword,
-          keyword_file_id: keyword_file_id
-        })
-      )
-      |> case do
+      case create_keyword_and_enqueue_search_multi(%{
+             title: keyword,
+             keyword_file_id: keyword_file_id
+           }) do
         {:ok, _} ->
           :ok
 
@@ -44,12 +41,13 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
     |> Repo.update!()
   end
 
-  defp create_keyword_and_enqueue_search(attributes) do
+  defp create_keyword_and_enqueue_search_multi(attributes) do
     Multi.new()
     |> Multi.insert(:create_keyword, Keyword.changeset(%Keyword{}, attributes))
     |> Multi.run(:enqueue_keyword_searching_job, fn _, %{create_keyword: keyword} ->
       enqueue_keyword_searching_job(keyword)
     end)
+    |> Repo.transaction()
   end
 
   defp enqueue_keyword_searching_job(keyword) do

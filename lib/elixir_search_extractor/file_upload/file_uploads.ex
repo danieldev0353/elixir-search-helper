@@ -18,7 +18,7 @@ defmodule ElixirSearchExtractor.FileUpload.FileUploads do
     with :ok <- CsvValidator.validate_file(csv_file),
          {:ok, refactored_attributes} <- refactor_attributes(attributes, user_id, csv_file),
          {:ok, %{create_keyword_file: keyword_file}} <-
-           Repo.transaction(create_and_upload_file_multi(csv_file, refactored_attributes)) do
+           create_and_upload_file_multi(csv_file, refactored_attributes) do
       {:ok, keyword_file}
     else
       {:error, :create_keyword_file, changeset, _} ->
@@ -36,7 +36,6 @@ defmodule ElixirSearchExtractor.FileUpload.FileUploads do
     keyword_file
     |> KeywordFile.complete_changeset()
     |> Repo.update()
-    |> IO.inspect()
   end
 
   def change_keyword_file(%KeywordFile{} = keyword_file, attrs \\ %{}) do
@@ -52,6 +51,7 @@ defmodule ElixirSearchExtractor.FileUpload.FileUploads do
     |> Multi.run(:upload_keyword_file, fn _, _ ->
       CsvUploader.upload_file(csv_file, attributes["csv_file"])
     end)
+    |> Repo.transaction()
   end
 
   defp refactor_attributes(attributes, user_id, csv_file) do
