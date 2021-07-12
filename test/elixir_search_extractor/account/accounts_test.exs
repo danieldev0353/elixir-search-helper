@@ -1,5 +1,5 @@
-defmodule ElixirSearchExtractor.AccountsTest do
-  use ElixirSearchExtractor.DataCase
+defmodule ElixirSearchExtractor.Account.AccountsTest do
+  use ElixirSearchExtractor.DataCase, async: true
 
   import ElixirSearchExtractor.AccountsFixtures
   alias ElixirSearchExtractor.Account.Accounts

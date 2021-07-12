@@ -64,7 +64,10 @@ defmodule ElixirSearchExtractor.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:nimble_template, "~> 3.0", only: :dev, runtime: false},
       {:phx_gen_auth, "~> 0.7", only: :dev, runtime: false},
-      {:phoenix_pagination, "~> 0.7.0"}
+      {:phoenix_pagination, "~> 0.7.0"},
+      {:floki, "~> 0.31.0"},
+      {:httpoison, "~> 1.8"},
+      {:nimble_csv, "~> 1.1"}
     ]
   end
 

@@ -9,7 +9,7 @@ defmodule ElixirSearchExtractor.FileUpload.CsvUploaderTest do
     test "valid data uploads a file" do
       user = user_fixture()
       csv = valid_csv_file()
-      {:ok, upload_path} = CsvUploader.upload_file_path(user.id, csv)
+      upload_path = CsvUploader.upload_file_path(user.id, csv)
 
       assert {:ok, _} = CsvUploader.upload_file(csv, upload_path)
 
@@ -30,8 +30,9 @@ defmodule ElixirSearchExtractor.FileUpload.CsvUploaderTest do
     test "valid data returns the upload path" do
       user = user_fixture()
       csv = valid_csv_file()
+      upload_path = CsvUploader.upload_file_path(user.id, csv)
 
-      assert {:ok, _} = CsvUploader.upload_file_path(user.id, csv)
+      assert String.contains?(upload_path, "keyword_files/user_#{user.id}")
     end
   end
 end
