@@ -5,16 +5,15 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
   alias ElixirSearchExtractor.SearchKeywords.Errors.{KeywordNotCreatedError, KeywordNotUpdatedError}
   alias ElixirSearchExtractorWorker.KeywordSearchWorker
 
-  def store_keywords(keyword_list, keyword_file_id) do
+  def store_keywords!(keyword_list, keyword_file_id) do
     Enum.each(keyword_list, fn keyword ->
-      case(
-        Repo.transaction(
-          create_keyword_and_enqueue_search(%{
-            title: keyword,
-            keyword_file_id: keyword_file_id
-          })
-        )
-      ) do
+      Repo.transaction(
+        create_keyword_and_enqueue_search(%{
+          title: keyword,
+          keyword_file_id: keyword_file_id
+        })
+      )
+      |> case do
         {:ok, _} ->
           :ok
 
@@ -26,7 +25,7 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
     {:ok, keyword_list}
   end
 
-  def update_keyword(%Keyword{} = keyword, attrs) do
+  def update_keyword!(%Keyword{} = keyword, attrs) do
     keyword
     |> Keyword.changeset(attrs)
     |> Repo.update()
@@ -39,7 +38,7 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
     end
   end
 
-  def mark_keyword_as_completed(keyword) do
+  def mark_keyword_as_completed!(keyword) do
     keyword
     |> Keyword.complete_changeset()
     |> Repo.update!()

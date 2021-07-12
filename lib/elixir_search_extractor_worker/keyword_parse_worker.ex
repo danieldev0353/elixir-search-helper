@@ -25,7 +25,7 @@ defmodule ElixirSearchExtractorWorker.KeywordParseWorker do
   defp store_keywords_and_complete_file_process_multi(keyword_list, keyword_file) do
     Multi.new()
     |> Multi.run(:store_keyword, fn _, _ ->
-      SearchKeywords.store_keywords(keyword_list, keyword_file.id)
+      SearchKeywords.store_keywords!(keyword_list, keyword_file.id)
     end)
     |> Multi.run(:mark_keyword_file_as_completed, fn _, _ ->
       FileUploads.mark_keyword_file_as_completed(keyword_file)

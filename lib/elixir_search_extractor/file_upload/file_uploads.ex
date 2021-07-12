@@ -33,12 +33,10 @@ defmodule ElixirSearchExtractor.FileUpload.FileUploads do
   end
 
   def mark_keyword_file_as_completed(keyword_file) do
-    changeset =
-      keyword_file
-      |> KeywordFile.complete_changeset()
-      |> Repo.update!()
-
-    {:ok, changeset}
+    keyword_file
+    |> KeywordFile.complete_changeset()
+    |> Repo.update()
+    |> IO.inspect()
   end
 
   def change_keyword_file(%KeywordFile{} = keyword_file, attrs \\ %{}) do
