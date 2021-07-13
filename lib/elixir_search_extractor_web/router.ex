@@ -18,6 +18,20 @@ defmodule ElixirSearchExtractorWeb.Router do
     plug :accepts, ["json"]
   end
 
+  ## API routes
+
+  scope "/api/v1" do
+    pipe_through :api
+
+    oauth_api_routes()
+  end
+
+  scope "/" do
+    pipe_through([:browser, :require_authenticated_user])
+
+    oauth_routes()
+  end
+
   # coveralls-ignore-stop
 
   # Other scopes may use custom stacks.
@@ -69,19 +83,5 @@ defmodule ElixirSearchExtractorWeb.Router do
     pipe_through [:browser]
 
     delete "/users/log_out", UserSessionController, :delete
-  end
-
-  ## API routes
-
-  scope "/api/v1" do
-    pipe_through :api
-
-    oauth_api_routes()
-  end
-
-  scope "/" do
-    pipe_through([:browser, :require_authenticated_user])
-
-    oauth_routes()
   end
 end
