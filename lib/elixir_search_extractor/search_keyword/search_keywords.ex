@@ -13,7 +13,7 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
   end
 
   def get_keyword!(keyword_id) do
-    Repo.get_by!(Keyword, %{id: keyword_id})
+    Repo.get!(Keyword, keyword_id)
   end
 
   def store_keywords!(keyword_list, keyword_file_id) do

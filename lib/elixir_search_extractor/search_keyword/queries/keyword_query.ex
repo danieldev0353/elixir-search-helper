@@ -8,6 +8,6 @@ defmodule ElixirSearchExtractor.SearchKeyword.Queries.KeywordQuery do
       join: file in KeywordFile,
       on: keyword.keyword_file_id == file.id,
       where: file.user_id == ^user.id,
-      order_by: fragment("? DESC", keyword.inserted_at)
+      order_by: [desc: :inserted_at]
   end
 end

@@ -1,5 +1,5 @@
 defmodule ElixirSearchExtractorWeb.KeywordControllerTest do
-  use ElixirSearchExtractorWeb.ConnCase
+  use ElixirSearchExtractorWeb.ConnCase, async: true
 
   import ElixirSearchExtractor.AccountsFixtures
 

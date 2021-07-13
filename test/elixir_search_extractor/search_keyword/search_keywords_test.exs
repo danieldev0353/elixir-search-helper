@@ -10,6 +10,7 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywordsTest do
       user = user_fixture()
       user_file = insert(:keyword_file, user: user)
       user_keyword = insert(:keyword, keyword_file: user_file)
+      insert(:keyword)
 
       {keyword, _} = SearchKeywords.paginated_user_keywords(user, %{page: 1})
 
@@ -25,6 +26,12 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywordsTest do
       retrieved_keyword = SearchKeywords.get_keyword!(keyword.id)
 
       assert retrieved_keyword.id == keyword.id
+    end
+
+    test "raises Ecto.NoResultsError if the keyword does not exists" do
+      assert_raise Ecto.NoResultsError, fn ->
+        SearchKeywords.get_keyword!(1)
+      end
     end
   end
 
