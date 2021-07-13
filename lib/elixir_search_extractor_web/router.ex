@@ -18,6 +18,12 @@ defmodule ElixirSearchExtractorWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :authenticated_api do
+    plug ExOauth2Provider.Plug.VerifyHeader, otp_app: :elixir_search_extractor, realm: "Bearer"
+    plug ExOauth2Provider.Plug.EnsureAuthenticated
+    plug ElixirSearchExtractorWeb.Plugs.SetCurrentApiUser
+  end
+
   ## API routes
 
   scope "/api/v1" do
@@ -26,8 +32,14 @@ defmodule ElixirSearchExtractorWeb.Router do
     oauth_api_routes()
   end
 
+  scope "/api/v1", ElixirSearchExtractorWeb do
+    pipe_through [:api, :authenticated_api]
+
+    resources "/keyword_files", Api.V1.KeywordFileController, only: [:create]
+  end
+
   scope "/" do
-    pipe_through([:browser, :require_authenticated_user])
+    pipe_through [:browser, :require_authenticated_user]
 
     oauth_routes()
   end

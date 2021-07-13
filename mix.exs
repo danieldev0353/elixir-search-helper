@@ -69,7 +69,8 @@ defmodule ElixirSearchExtractor.MixProject do
       {:httpoison, "~> 1.8"},
       {:nimble_csv, "~> 1.1"},
       {:phoenix_oauth2_provider, "~> 0.5.1"},
-      {:ex_oauth2_provider, "~> 0.5.6"}
+      {:ex_oauth2_provider, "~> 0.5.6"},
+      {:jsonapi, "~> 1.3"}
     ]
   end
 
