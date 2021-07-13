@@ -67,7 +67,9 @@ defmodule ElixirSearchExtractor.MixProject do
       {:phoenix_pagination, "~> 0.7.0"},
       {:floki, "~> 0.31.0"},
       {:httpoison, "~> 1.8"},
-      {:nimble_csv, "~> 1.1"}
+      {:nimble_csv, "~> 1.1"},
+      {:phoenix_oauth2_provider, "~> 0.5.1"},
+      {:ex_oauth2_provider, "~> 0.5.6"}
     ]
   end
 

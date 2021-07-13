@@ -7,6 +7,9 @@
     "lib/elixir_search_extractor_mail.ex",
     "lib/elixir_search_extractor_web/endpoint.ex",
     "lib/elixir_search_extractor_web/views/error_helpers.ex",
+    "lib/elixir_search_extractor/oauth_access_grants/ oauth_access_grant.ex",
+    "lib/elixir_search_extractor/oauth_access_tokens/ oauth_access_token.ex",
+    "lib/elixir_search_extractor/oauth_applications/ oauth_application.ex",
     "test/support"
   ],
   "coverage_options": {

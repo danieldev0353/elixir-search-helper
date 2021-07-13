@@ -1,5 +1,6 @@
 defmodule ElixirSearchExtractorWeb.Router do
   use ElixirSearchExtractorWeb, :router
+  use PhoenixOauth2Provider.Router, otp_app: :elixir_search_extractor
 
   import ElixirSearchExtractorWeb.UserAuth
 
@@ -68,5 +69,19 @@ defmodule ElixirSearchExtractorWeb.Router do
     pipe_through [:browser]
 
     delete "/users/log_out", UserSessionController, :delete
+  end
+
+  ## API routes
+
+  scope "/api/v1" do
+    pipe_through :api
+
+    oauth_api_routes()
+  end
+
+  scope "/" do
+    pipe_through([:browser, :require_authenticated_user])
+
+    oauth_routes()
   end
 end
