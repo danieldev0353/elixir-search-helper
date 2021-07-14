@@ -32,7 +32,7 @@ defmodule ElixirSearchExtractorWeb.Router do
     oauth_api_routes()
   end
 
-  scope "/api/v1", ElixirSearchExtractorWeb do
+  scope "/api/v1", ElixirSearchExtractorWeb, as: :api_v1 do
     pipe_through [:api, :authenticated_api]
 
     resources "/keyword_files", Api.V1.KeywordFileController, only: [:create]

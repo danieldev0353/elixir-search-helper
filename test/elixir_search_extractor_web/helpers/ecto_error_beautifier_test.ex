@@ -1,23 +1,43 @@
 defmodule ElixirSearchExtractorWeb.Helpers.EctoErrorBeautifierTest do
-  use ExUnit.Case, async: true
+  use ExUnit.Case
 
   alias ElixirSearchExtractorWeb.Helpers.EctoErrorBeautifier
 
   describe "beautify_ecto_error/1" do
     test "it beautifies simple errors" do
-      res = EctoErrorBeautifier.beautify_ecto_error([name: {"can't be blank", [validation: :required]}])
+      response =
+        EctoErrorBeautifier.beautify_ecto_error(%Ecto.Changeset{
+          errors: [
+            name: {"can't be blank", [validation: :required]}
+          ],
+          types: []
+        })
 
-      assert ["Name can't be blank"] = res
+      assert response == %{name: ["can't be blank"]}
     end
 
     test "it beautifies errors with variables" do
-      res = EctoErrorBeautifier.beautify_ecto_error([
-        login: {"should be at most %{count} character(s)", [count: 10]},
-        message_body: "should not be blank"
-      ])
+      response =
+        EctoErrorBeautifier.beautify_ecto_error(%Ecto.Changeset{
+          errors: [
+            password:
+              {"should be at least %{count} character(s)",
+               [count: 6, validation: :length, kind: :min, type: :string]},
+            name:
+              {"should be at least %{count} character(s)",
+               [count: 5, validation: :length, kind: :min, type: :string]},
+            email: {"must have the @ sign and no spaces", [validation: :format]},
+            password_confirmation: {"does not match password", [validation: :confirmation]}
+          ],
+          types: []
+        })
 
-      assert String.equivalent?(Enum.at(res, 0), "Login should be at most 10 character(s)")
-      assert String.equivalent?(Enum.at(res, 1), "Message body should not be blank")
+      assert response == %{
+               email: ["must have the @ sign and no spaces"],
+               name: ["should be at least 5 character(s)"],
+               password: ["should be at least 6 character(s)"],
+               password_confirmation: ["does not match password"]
+             }
     end
   end
 end
