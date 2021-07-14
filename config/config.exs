@@ -34,3 +34,8 @@ config :elixir_search_extractor, Oban,
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
+
+config :elixir_search_extractor, ExOauth2Provider,
+  repo: ElixirSearchExtractor.Repo,
+  resource_owner: ElixirSearchExtractor.Account.Schemas.User,
+  password_auth: {ElixirSearchExtractor.Account.Oauth2.Auth, :authenticate}
