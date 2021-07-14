@@ -21,7 +21,7 @@ defmodule ElixirSearchExtractorWeb.Router do
   pipeline :authenticated_api do
     plug ExOauth2Provider.Plug.VerifyHeader, otp_app: :elixir_search_extractor, realm: "Bearer"
     plug ExOauth2Provider.Plug.EnsureAuthenticated
-    plug ElixirSearchExtractorWeb.Plugs.SetCurrentApiUser
+    plug ElixirSearchExtractorWeb.SetCurrentApiUserPlug
   end
 
   ## API routes

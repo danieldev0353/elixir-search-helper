@@ -1,13 +1,13 @@
-defmodule ElixirSearchExtractorWeb.Plugs.SetCurrentApiUserTest do
+defmodule ElixirSearchExtractorWeb.SetCurrentApiUserPlugTest do
   use ElixirSearchExtractorWeb.ConnCase, async: true
   use Plug.Test
 
   import ElixirSearchExtractor.{AccountsFixtures, AccessTokenFixture}
-  alias ElixirSearchExtractorWeb.Plugs.SetCurrentApiUser
+  alias ElixirSearchExtractorWeb.SetCurrentApiUserPlug
 
   describe "init/1" do
     test "returns the options argument passed to the function" do
-      assert SetCurrentApiUser.init([]) == []
+      assert SetCurrentApiUserPlug.init([]) == []
     end
   end
 
