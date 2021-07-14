@@ -5,7 +5,7 @@ defmodule ElixirSearchExtractor.Account.Oauth2.AuthTest do
   alias ElixirSearchExtractor.Account.Oauth2.Auth
 
   describe "authenticate/2" do
-    test "it authenticates user if valid email and password is given" do
+    test "authenticates user if valid email and password is given" do
       user_attributes = valid_user_attributes()
       user = user_fixture(user_attributes)
 
@@ -15,11 +15,11 @@ defmodule ElixirSearchExtractor.Account.Oauth2.AuthTest do
       assert authenticated_user == user
     end
 
-    test "it returns no_user_found if email is not found" do
+    test "returns no_user_found if email is not found" do
       assert {:error, :no_user_found} = Auth.authenticate("test@email.com", "password")
     end
 
-    test "it returns invalid_password found if password is not correct" do
+    test "returns invalid_password found if password is not correct" do
       user_attributes = valid_user_attributes()
       user_fixture(user_attributes)
 
