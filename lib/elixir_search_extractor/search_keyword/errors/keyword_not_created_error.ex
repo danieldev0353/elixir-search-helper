@@ -1,3 +1,3 @@
-defmodule ElixirSearchExtractor.SearchKeywords.Errors.KeywordNotCreatedError do
+defmodule ElixirSearchExtractor.SearchKeyword.Errors.KeywordNotCreatedError do
   defexception message: "Keyword not created!"
 end

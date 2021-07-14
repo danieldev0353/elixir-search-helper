@@ -1,9 +1,39 @@
 defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywordsTest do
   use ElixirSearchExtractor.DataCase, async: true
 
-  import ElixirSearchExtractor.KeywordFixtures
+  import ElixirSearchExtractor.{AccountsFixtures, KeywordFixtures}
   alias ElixirSearchExtractor.SearchKeyword.Schemas.Keyword
   alias ElixirSearchExtractor.SearchKeyword.SearchKeywords
+
+  describe "paginated_user_keywords/2" do
+    test "returns user's keywords" do
+      user = user_fixture()
+      user_file = insert(:keyword_file, user: user)
+      user_keyword = insert(:keyword, keyword_file: user_file)
+      _other_user_keyword = insert(:keyword)
+
+      {keyword, _} = SearchKeywords.paginated_user_keywords(user, %{page: 1})
+
+      assert length(keyword) == 1
+
+      assert List.first(keyword).id == user_keyword.id
+    end
+  end
+
+  describe "get_keyword!/1" do
+    test "returns the keyword if the keyword exists" do
+      keyword = insert(:keyword)
+      retrieved_keyword = SearchKeywords.get_keyword!(keyword.id)
+
+      assert retrieved_keyword.id == keyword.id
+    end
+
+    test "raises Ecto.NoResultsError if the keyword does not exists" do
+      assert_raise Ecto.NoResultsError, fn ->
+        SearchKeywords.get_keyword!(1)
+      end
+    end
+  end
 
   describe "store_keywords!/2" do
     test "with valid data creates keywords from the given keyword list" do
@@ -28,7 +58,7 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywordsTest do
     end
 
     test "with invalid data raises KeywordNotCreatedError" do
-      assert_raise ElixirSearchExtractor.SearchKeywords.Errors.KeywordNotCreatedError, fn ->
+      assert_raise ElixirSearchExtractor.SearchKeyword.Errors.KeywordNotCreatedError, fn ->
         SearchKeywords.store_keywords!([""], "")
       end
     end
@@ -54,7 +84,7 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywordsTest do
     test "with invalid data raises KeywordNotUpdatedError" do
       keyword = insert(:keyword)
 
-      assert_raise ElixirSearchExtractor.SearchKeywords.Errors.KeywordNotUpdatedError, fn ->
+      assert_raise ElixirSearchExtractor.SearchKeyword.Errors.KeywordNotUpdatedError, fn ->
         SearchKeywords.update_keyword!(keyword, invalid_attributes())
       end
     end

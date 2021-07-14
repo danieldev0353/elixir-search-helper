@@ -10,6 +10,6 @@ defmodule ElixirSearchExtractorWeb.AuthenticationPage.LoginPageTest do
   feature "view dashboard after successful log in", %{session: session} do
     session
     |> register_and_login()
-    |> assert_has(Query.text("Dashboard!"))
+    |> assert_has(Query.text("Keyword Report"))
   end
 end

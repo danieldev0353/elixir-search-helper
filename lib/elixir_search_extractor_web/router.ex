@@ -52,6 +52,7 @@ defmodule ElixirSearchExtractorWeb.Router do
     put "/users/settings", UserSettingsController, :update
 
     resources "/keyword_files", KeywordFileController, only: [:index, :new, :create]
+    get "/keyword/:keyword_id/html", KeywordController, :html_view
   end
 
   scope "/", ElixirSearchExtractorWeb do
