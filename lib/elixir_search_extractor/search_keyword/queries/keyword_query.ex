@@ -8,4 +8,10 @@ defmodule ElixirSearchExtractor.SearchKeyword.Queries.KeywordQuery do
     |> where([_, kf], kf.user_id == ^user.id)
     |> order_by([k, _], desc: k.inserted_at)
   end
+
+  def filter_keywords(query, nil), do: query
+
+  def filter_keywords(query, search_string) do
+    where(query, [keyword], ilike(keyword.title, ^"%#{search_string}%"))
+  end
 end

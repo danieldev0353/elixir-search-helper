@@ -1,5 +1,8 @@
 <div class="page-header">
   <div class="page-header__title"><%= dgettext("keyword_report", "Keyword Report") %></div>
+  <div class="page-header__action">
+    <%= render ElixirSearchExtractorWeb.PageView, "_search.html", conn: @conn %>
+  </div>
 </div>
 
 <div class="card-report">

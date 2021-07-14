@@ -1,0 +1,9 @@
+<%= form_for @conn, Routes.page_path(@conn, :index), [method: "get"], fn f -> %>
+  <div class="input-group">
+    <%= text_input f, :name, class: "form-control", placeholder: "Search Keyword" %>
+
+    <div class="input-group-append">
+      <%= submit dgettext("search", "Search"), class: "btn btn--primary" %>
+    </div>
+  </div>
+<% end %>

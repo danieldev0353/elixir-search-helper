@@ -18,6 +18,19 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywordsTest do
 
       assert List.first(keyword).id == user_keyword.id
     end
+
+    test "returns filtered user's keywords if user search by keyword title" do
+      user = user_fixture()
+      user_file = insert(:keyword_file, user: user)
+      searched_keyword = insert(:keyword, title: "Macbook", keyword_file: user_file)
+      insert(:keyword, title: "GPS", keyword_file: user_file)
+
+      {keyword, _} = SearchKeywords.paginated_user_keywords(user, %{"page" => 1, "name" => "Mac"})
+
+      assert length(keyword) == 1
+
+      assert List.first(keyword).id == searched_keyword.id
+    end
   end
 
   describe "get_keyword!/1" do
