@@ -12,7 +12,7 @@ defmodule ElixirSearchExtractorWeb.KeywordPage.ViewHtmlViewPageTest do
     session
     |> login(user_attributes.email, user_attributes.password)
     |> visit(Routes.keyword_path(ElixirSearchExtractorWeb.Endpoint, :html_view, keyword.id))
-    |> focus_frame(Query.css(".html-view"))
+    |> focus_frame(Query.css(".search-page-view"))
     |> assert_has(Query.text("Result View"))
   end
 
