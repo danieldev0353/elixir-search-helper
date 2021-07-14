@@ -14,10 +14,4 @@ defmodule ElixirSearchExtractor.SearchKeyword.Queries.KeywordQuery do
   def filter_keywords(query, search_string) do
     where(query, [keyword], ilike(keyword.title, ^"%#{search_string}%"))
   end
-
-  def filter_keywords(query, nil), do: query
-
-  def filter_keywords(query, search_string) do
-    where(query, [keyword], ilike(keyword.title, ^"%#{search_string}%"))
-  end
 end
