@@ -3,7 +3,7 @@ defmodule ElixirSearchExtractorWeb.KeywordPage.ViewHtmlViewPageTest do
 
   import ElixirSearchExtractor.AccountsFixtures
 
-  feature "view keyword html if keyword has html response", %{session: session} do
+  feature "views keyword html if keyword has html response", %{session: session} do
     user_attributes = valid_user_attributes()
     user = user_fixture(user_attributes)
     user_file = insert(:keyword_file, user: user)
@@ -16,7 +16,7 @@ defmodule ElixirSearchExtractorWeb.KeywordPage.ViewHtmlViewPageTest do
     |> assert_has(Query.text("Result View"))
   end
 
-  feature "view No HTML view yet message if keyword status in precessing", %{session: session} do
+  feature "views No HTML view yet message if keyword status in processing", %{session: session} do
     user_attributes = valid_user_attributes()
     user = user_fixture(user_attributes)
     user_file = insert(:keyword_file, user: user)

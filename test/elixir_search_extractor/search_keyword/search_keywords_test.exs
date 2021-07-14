@@ -10,7 +10,7 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywordsTest do
       user = user_fixture()
       user_file = insert(:keyword_file, user: user)
       user_keyword = insert(:keyword, keyword_file: user_file)
-      insert(:keyword)
+      _other_user_keyword = insert(:keyword)
 
       {keyword, _} = SearchKeywords.paginated_user_keywords(user, %{page: 1})
 

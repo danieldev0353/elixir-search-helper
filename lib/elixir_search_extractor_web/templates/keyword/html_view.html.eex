@@ -1,6 +1,6 @@
 <div class="card-report">
   <%= if @keyword.status == :completed do %>
-    <iframe srcdoc="<%= @keyword.html %>" class="html-view"></iframe>
+    <iframe srcdoc="<%= @keyword.html %>" class="search-page-view"></iframe>
   <% else %>
     <h4 class="text-center">No HTML view yet!</h4>
   <% end %>
