@@ -4,7 +4,7 @@ defmodule ElixirSearchExtractorWeb.Helpers.EctoErrorBeautifierTest do
   alias ElixirSearchExtractorWeb.Helpers.EctoErrorBeautifier
 
   describe "beautify_ecto_error/1" do
-    test "it beautifies simple errors" do
+    test "beautifies simple errors" do
       response =
         EctoErrorBeautifier.beautify_ecto_error(%Ecto.Changeset{
           errors: [
@@ -16,7 +16,7 @@ defmodule ElixirSearchExtractorWeb.Helpers.EctoErrorBeautifierTest do
       assert response == %{name: ["can't be blank"]}
     end
 
-    test "it beautifies errors with variables" do
+    test "beautifies errors with variables" do
       response =
         EctoErrorBeautifier.beautify_ecto_error(%Ecto.Changeset{
           errors: [
