@@ -4,7 +4,9 @@ defmodule ElixirSearchExtractorWeb.Api.V1.KeywordFileControllerTest do
   import ElixirSearchExtractor.{AccountsFixtures, AccessTokenFixture, KeywordFileFixtures}
 
   describe "post api/v1/keyword_files" do
-    test "returns 201 status with 'Upload Successful' message when valid data is given", %{conn: conn} do
+    test "returns 201 status with 'Upload Successful' message when valid data is given", %{
+      conn: conn
+    } do
       user = user_fixture()
       access_token = access_token_fixture(user)
 
