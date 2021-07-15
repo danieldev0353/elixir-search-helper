@@ -1,22 +1,23 @@
 defmodule ElixirSearchExtractor.AccessTokenFixture do
+  import Plug.Conn
   import ElixirSearchExtractor.{AccountsFixtures, OauthApplicationFixture}
   alias ExOauth2Provider.AccessTokens
 
-  def access_token_fixture do
+  def set_authentication_header(conn) do
     {_, access_token} =
       AccessTokens.create_token(user_fixture(), %{application: oauth_application_fixture()},
         otp_app: :elixir_search_extractor
       )
 
-    access_token
+    put_req_header(conn, "authorization", "Bearer " <> access_token.token)
   end
 
-  def access_token_fixture(user) do
+  def set_authentication_header(conn, user) do
     {_, access_token} =
       AccessTokens.create_token(user, %{application: oauth_application_fixture()},
         otp_app: :elixir_search_extractor
       )
 
-    access_token
+    put_req_header(conn, "authorization", "Bearer " <> access_token.token)
   end
 end

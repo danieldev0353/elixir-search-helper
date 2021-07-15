@@ -8,11 +8,10 @@ defmodule ElixirSearchExtractorWeb.Api.V1.KeywordFileControllerTest do
       conn: conn
     } do
       user = user_fixture()
-      access_token = access_token_fixture(user)
 
       conn =
         conn
-        |> put_req_header("authorization", "Bearer " <> access_token.token)
+        |> set_authentication_header(user)
         |> post(Routes.api_v1_keyword_file_path(conn, :create), valid_keyword_file_attributes())
 
       assert conn.status == 201
@@ -22,11 +21,9 @@ defmodule ElixirSearchExtractorWeb.Api.V1.KeywordFileControllerTest do
     end
 
     test "returns 422 status with reason if no CSV file is given", %{conn: conn} do
-      access_token = access_token_fixture()
-
       conn =
         conn
-        |> put_req_header("authorization", "Bearer " <> access_token.token)
+        |> set_authentication_header()
         |> post(Routes.api_v1_keyword_file_path(conn, :create), %{
           "name" => "Test",
           "csv_file" => nil
@@ -38,11 +35,9 @@ defmodule ElixirSearchExtractorWeb.Api.V1.KeywordFileControllerTest do
     end
 
     test "returns 422 status with reason if no name of file is given", %{conn: conn} do
-      access_token = access_token_fixture()
-
       conn =
         conn
-        |> put_req_header("authorization", "Bearer " <> access_token.token)
+        |> set_authentication_header()
         |> post(Routes.api_v1_keyword_file_path(conn, :create), %{
           "name" => nil,
           "csv_file" => valid_csv_file()
@@ -54,11 +49,9 @@ defmodule ElixirSearchExtractorWeb.Api.V1.KeywordFileControllerTest do
     end
 
     test "returns 422 status with reason if invalid file is given", %{conn: conn} do
-      access_token = access_token_fixture()
-
       conn =
         conn
-        |> put_req_header("authorization", "Bearer " <> access_token.token)
+        |> set_authentication_header()
         |> post(Routes.api_v1_keyword_file_path(conn, :create), %{
           "name" => nil,
           "csv_file" => invalid_extension_file()
