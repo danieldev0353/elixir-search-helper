@@ -3,7 +3,7 @@ defmodule ElixirSearchExtractorWeb.Api.V1.KeywordFileController do
 
   alias ElixirSearchExtractor.FileUpload.FileUploads
   alias ElixirSearchExtractorWeb.Api.V1.ErrorView
-  alias ElixirSearchExtractorWeb.EctoErrorBeautifierHelper
+  alias ElixirSearchExtractorWeb.EctoErrorHelper
 
   def create(conn, keyword_file_params) do
     case FileUploads.create_keyword_file(keyword_file_params, conn.assigns.current_user.id) do
@@ -17,7 +17,7 @@ defmodule ElixirSearchExtractorWeb.Api.V1.KeywordFileController do
         |> put_status(:unprocessable_entity)
         |> put_view(ErrorView)
         |> render("error.json",
-          errors: [%{detail: EctoErrorBeautifierHelper.beautify_ecto_error(changeset)}]
+          errors: [%{detail: EctoErrorHelper.translate_error(changeset)}]
         )
 
       {:error, reason} ->

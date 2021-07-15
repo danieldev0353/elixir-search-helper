@@ -1,12 +1,12 @@
 defmodule ElixirSearchExtractorWeb.EctoErrorBeautifierTestHelper do
   use ExUnit.Case
 
-  alias ElixirSearchExtractorWeb.EctoErrorBeautifierHelper
+  alias ElixirSearchExtractorWeb.EctoErrorHelper
 
   describe "beautify_ecto_error/1" do
     test "beautifies simple errors" do
       response =
-        EctoErrorBeautifierHelper.beautify_ecto_error(%Ecto.Changeset{
+        EctoErrorHelper.translate_error(%Ecto.Changeset{
           errors: [
             name: {"can't be blank", [validation: :required]}
           ],
@@ -18,7 +18,7 @@ defmodule ElixirSearchExtractorWeb.EctoErrorBeautifierTestHelper do
 
     test "beautifies errors with variables" do
       response =
-        EctoErrorBeautifierHelper.beautify_ecto_error(%Ecto.Changeset{
+        EctoErrorHelper.translate_error(%Ecto.Changeset{
           errors: [
             password:
               {"should be at least %{count} character(s)",
