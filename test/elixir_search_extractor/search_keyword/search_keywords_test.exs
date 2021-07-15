@@ -48,6 +48,24 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywordsTest do
     end
   end
 
+  describe "get_user_keyword/2" do
+    test "returns the user keyword if the keyword exists" do
+      user = user_fixture()
+      user_file = insert(:keyword_file, user: user)
+      user_keyword = insert(:keyword, keyword_file: user_file)
+
+      retrieved_keyword = SearchKeywords.get_user_keyword(user, user_keyword.id)
+
+      assert retrieved_keyword.id == user_keyword.id
+    end
+
+    test "returns nil if the user keyword does not exists" do
+      user = user_fixture()
+
+      assert nil == SearchKeywords.get_user_keyword(user, 1)
+    end
+  end
+
   describe "store_keywords!/2" do
     test "with valid data creates keywords from the given keyword list" do
       keyword_file = insert(:keyword_file)

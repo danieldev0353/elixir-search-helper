@@ -36,6 +36,7 @@ defmodule ElixirSearchExtractorWeb.Router do
     pipe_through [:api, :authenticated_api]
 
     resources "/keyword_files", Api.V1.KeywordFileController, only: [:create]
+    resources "/keywords", Api.V1.KeywordController, only: [:index, :show]
   end
 
   scope "/" do
