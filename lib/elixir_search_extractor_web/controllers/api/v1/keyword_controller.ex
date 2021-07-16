@@ -11,21 +11,21 @@ defmodule ElixirSearchExtractorWeb.Api.V1.KeywordController do
 
     conn
     |> put_view(ListView)
-    |> render("index.json", %{data: keywords, meta: meta_data(pagination)})
+    |> render("index.json", data: keywords, meta: meta_data(pagination))
   end
 
   def show(conn, %{"id" => keyword_id}) do
     case SearchKeywords.get_user_keyword(conn.assigns.current_user, keyword_id) do
       nil ->
         conn
-        |> put_status(:unprocessable_entity)
+        |> put_status(:not_found)
         |> put_view(ErrorView)
-        |> render("error.json", errors: [%{detail: "Keyword not found!"}])
+        |> render("error.json", errors: "Keyword not found!")
 
       keyword ->
         conn
         |> put_view(DetailView)
-        |> render("show.json", %{data: keyword})
+        |> render("show.json", data: keyword)
     end
   end
 

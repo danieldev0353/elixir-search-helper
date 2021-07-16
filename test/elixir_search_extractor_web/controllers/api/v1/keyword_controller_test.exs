@@ -116,7 +116,7 @@ defmodule ElixirSearchExtractorWeb.Api.V1.KeywordControllerTest do
         |> set_authentication_header()
         |> get(Routes.api_v1_keyword_path(conn, :show, 1))
 
-      assert json_response(conn, 422) == %{
+      assert json_response(conn, 404) == %{
                "errors" => [%{"detail" => "Keyword not found!"}]
              }
     end
