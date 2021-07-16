@@ -4,7 +4,7 @@ defmodule ElixirSearchExtractorWeb.Api.V1.KeywordFileControllerTest do
   import ElixirSearchExtractor.{AccountsFixtures, AccessTokenFixture, KeywordFileFixtures}
 
   describe "post api/v1/keyword_files" do
-    test "returns 201 status with 'Upload Successful' message when valid data is given", %{
+    test "returns 201 status with uploaded file when valid data is given", %{
       conn: conn
     } do
       user = user_fixture()
@@ -14,8 +14,21 @@ defmodule ElixirSearchExtractorWeb.Api.V1.KeywordFileControllerTest do
         |> set_authentication_header(user)
         |> post(Routes.api_v1_keyword_file_path(conn, :create), valid_keyword_file_attributes())
 
-      assert conn.status == 201
-      assert conn.resp_body == "Upload Successful"
+      assert %{
+               "data" => %{
+                 "attributes" => %{
+                   "csv_file" => _,
+                   "name" => "Test File",
+                   "status" => "pending"
+                 },
+                 "id" => _,
+                 "links" => _,
+                 "relationships" => %{},
+                 "type" => "keyword_files"
+               },
+               "included" => [],
+               "links" => _
+             } = json_response(conn, 201)
 
       remove_uploaded_files(user.id)
     end
