@@ -9,7 +9,7 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
   def paginated_user_keywords(user, params \\ %{}) do
     user
     |> KeywordQuery.user_keywords()
-    |> KeywordQuery.filter_keywords(params["name"])
+    |> KeywordQuery.filter(params)
     |> Repo.paginate(params)
   end
 

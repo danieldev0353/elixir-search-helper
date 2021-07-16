@@ -1,0 +1,14 @@
+body.page.index {
+  .form-keyword-filter {
+    display: inline-flex;
+
+    label {
+      margin-bottom: rem(10px);
+    }
+
+    &__submit {
+      align-self: flex-end;
+      margin-left: rem(20px);
+    }
+  }
+}
