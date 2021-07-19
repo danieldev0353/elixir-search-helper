@@ -34,7 +34,7 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywordsTest do
   end
 
   describe "get_keyword!/1" do
-    test "returns the keyword if the keyword exist" do
+    test "returns the keyword if the keyword exists" do
       keyword = insert(:keyword)
       retrieved_keyword = SearchKeywords.get_keyword!(keyword.id)
 
@@ -49,7 +49,7 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywordsTest do
   end
 
   describe "get_user_keyword/2" do
-    test "returns the user keyword if the keyword exist" do
+    test "returns the user keyword if the keyword exists" do
       user = user_fixture()
       user_file = insert(:keyword_file, user: user)
       user_keyword = insert(:keyword, keyword_file: user_file)
