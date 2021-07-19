@@ -17,6 +17,12 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywords do
     Repo.get!(Keyword, keyword_id)
   end
 
+  def get_user_keyword(user, keyword_id) do
+    user
+    |> KeywordQuery.user_keywords()
+    |> Repo.get(keyword_id)
+  end
+
   def store_keywords!(keyword_list, keyword_file_id) do
     Enum.each(keyword_list, fn keyword ->
       case create_keyword_and_enqueue_search_multi(%{

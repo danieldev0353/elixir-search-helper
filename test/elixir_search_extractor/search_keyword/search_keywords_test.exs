@@ -41,10 +41,37 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywordsTest do
       assert retrieved_keyword.id == keyword.id
     end
 
-    test "raises Ecto.NoResultsError if the keyword does not exists" do
+    test "raises Ecto.NoResultsError if the keyword does not exist" do
       assert_raise Ecto.NoResultsError, fn ->
         SearchKeywords.get_keyword!(1)
       end
+    end
+  end
+
+  describe "get_user_keyword/2" do
+    test "returns the user keyword if the keyword exists" do
+      user = user_fixture()
+      user_file = insert(:keyword_file, user: user)
+      user_keyword = insert(:keyword, keyword_file: user_file)
+
+      retrieved_keyword = SearchKeywords.get_user_keyword(user, user_keyword.id)
+
+      assert retrieved_keyword.id == user_keyword.id
+    end
+
+    test "returns nil if the user keyword does not exist" do
+      user = user_fixture()
+
+      assert nil == SearchKeywords.get_user_keyword(user, 1)
+    end
+
+    test "returns nil if the keyword belongs to another user" do
+      first_user = user_fixture()
+      second_user = user_fixture()
+      second_user_file = insert(:keyword_file, user: second_user)
+      second_user_keyword = insert(:keyword, keyword_file: second_user_file)
+
+      assert nil == SearchKeywords.get_user_keyword(first_user, second_user_keyword.id)
     end
   end
 
