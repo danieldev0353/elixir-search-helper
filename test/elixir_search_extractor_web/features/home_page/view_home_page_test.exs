@@ -32,8 +32,11 @@ defmodule ElixirSearchExtractorWeb.HomePage.ViewHomePageTest do
     user_attributes = valid_user_attributes()
     user = user_fixture(user_attributes)
     user_file = insert(:keyword_file, user: user)
-    filterable_keyword = insert(:keyword, title: "Macbook", keyword_file: user_file)
-    unfiltered_keyword = insert(:keyword, title: "GPS", keyword_file: user_file)
+
+    filterable_keyword =
+      insert(:keyword, title: "Macbook", keyword_file: user_file, status: :completed)
+
+    unfiltered_keyword = insert(:keyword, title: "GPS", keyword_file: user_file, status: :completed)
 
     session
     |> login(user_attributes.email, user_attributes.password)

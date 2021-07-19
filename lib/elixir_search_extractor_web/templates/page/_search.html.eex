@@ -1,9 +1,33 @@
-<%= form_for @conn, Routes.page_path(@conn, :index), [method: "get"], fn f -> %>
-  <div class="input-group">
-    <%= text_input f, :name, class: "form-control", placeholder: "Search Keyword" %>
-
-    <div class="input-group-append">
-      <%= submit dgettext("search", "Search"), class: "btn btn--primary" %>
+<%= form_for @conn, Routes.page_path(@conn, :index), [method: "get", class: "form-keyword-filter"], fn f -> %>
+  <div class="row">
+    <div class="col">
+      <%= label f, :name, "Keyword" %>
+      <%= text_input f, :name, class: "form-control", id: "keyword", placeholder: "Keyword" %>
     </div>
+
+    <div class="col">
+      <%= label f, :result_url, "URL" %>
+      <%= text_input f, :result_url, class: "form-control", placeholder: "URL" %>
+    </div>
+
+    <div class="col">
+      <%= label f, :result_count, "Result" %>
+      <div class="input-group">
+        <%= select f, :result_condition, [">", "<", "="], class: "form-control", prompt: "Condition" %>
+        <%= number_input f, :result_count, class: "form-control", placeholder: "Count" %>
+      </div>
+    </div>
+
+    <div class="col">
+      <%= label f, :link_count, "Link" %>
+      <div class="input-group">
+        <%= select f, :link_condition, [">", "<", "="], class: "form-control", prompt: "Condition" %>
+        <%= number_input f, :link_count, class: "form-control", placeholder: "Count" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-keyword-filter__submit">
+    <%= submit dgettext("search", "Search"), class: "btn btn--primary" %>
   </div>
 <% end %>

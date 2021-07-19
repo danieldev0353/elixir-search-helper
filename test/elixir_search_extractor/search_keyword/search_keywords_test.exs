@@ -31,6 +31,218 @@ defmodule ElixirSearchExtractor.SearchKeyword.SearchKeywordsTest do
 
       assert List.first(keyword).id == searched_keyword.id
     end
+
+    test "returns filtered user's keywords if user search by URL" do
+      user = user_fixture()
+      user_file = insert(:keyword_file, user: user)
+
+      searched_keyword =
+        insert(:keyword,
+          title: "Macbook",
+          result_urls: [
+            "https://www.apple.com/sg/macbook-air/",
+            "https://www.apple.com/sg/macbook-pro/"
+          ],
+          keyword_file: user_file
+        )
+
+      _another_keyword =
+        insert(:keyword,
+          title: "GPS",
+          result_urls: [
+            "https://www.google.com/"
+          ],
+          keyword_file: user_file
+        )
+
+      {keyword, _} =
+        SearchKeywords.paginated_user_keywords(user, %{
+          "page" => 1,
+          "result_url" => "www.apple.com/sg/macbook-pro"
+        })
+
+      assert length(keyword) == 1
+
+      assert List.first(keyword).id == searched_keyword.id
+    end
+
+    test "returns filtered user's keywords where results are greater than the given 'result_count'
+          if user select '>' as 'result_condition'" do
+      user = user_fixture()
+      user_file = insert(:keyword_file, user: user)
+      searched_keyword = insert(:keyword, result_count: 10, keyword_file: user_file)
+      _another_keyword = insert(:keyword, result_count: 5, keyword_file: user_file)
+
+      {keyword, _} =
+        SearchKeywords.paginated_user_keywords(user, %{
+          "page" => 1,
+          "result_condition" => ">",
+          "result_count" => "9"
+        })
+
+      assert length(keyword) == 1
+
+      assert List.first(keyword).id == searched_keyword.id
+    end
+
+    test "returns filtered user's keywords where results are less than the given 'result_count'
+          if user select '<' as 'result_condition'" do
+      user = user_fixture()
+      user_file = insert(:keyword_file, user: user)
+      searched_keyword = insert(:keyword, result_count: 5, keyword_file: user_file)
+      _another_keyword = insert(:keyword, result_count: 10, keyword_file: user_file)
+
+      {keyword, _} =
+        SearchKeywords.paginated_user_keywords(user, %{
+          "page" => 1,
+          "result_condition" => "<",
+          "result_count" => "6"
+        })
+
+      assert length(keyword) == 1
+
+      assert List.first(keyword).id == searched_keyword.id
+    end
+
+    test "returns filtered user's keywords where results are equal to the given 'result_count'
+          if user select '=' as 'result_condition'" do
+      user = user_fixture()
+      user_file = insert(:keyword_file, user: user)
+      searched_keyword = insert(:keyword, result_count: 5, keyword_file: user_file)
+      _another_keyword = insert(:keyword, result_count: 10, keyword_file: user_file)
+
+      {keyword, _} =
+        SearchKeywords.paginated_user_keywords(user, %{
+          "page" => 1,
+          "result_condition" => "=",
+          "result_count" => "5"
+        })
+
+      assert length(keyword) == 1
+
+      assert List.first(keyword).id == searched_keyword.id
+    end
+
+    test "does not filter user's keywords if invalid 'result_condition' is given" do
+      user = user_fixture()
+      user_file = insert(:keyword_file, user: user)
+      first_keyword = insert(:keyword, result_count: 5, keyword_file: user_file)
+      second_keyword = insert(:keyword, result_count: 10, keyword_file: user_file)
+
+      {keyword, _} =
+        SearchKeywords.paginated_user_keywords(user, %{
+          "page" => 1,
+          "result_condition" => "^",
+          "result_count" => "5"
+        })
+
+      assert Enum.map(keyword, & &1.id) == [first_keyword.id, second_keyword.id]
+    end
+
+    test "does not filter user's keywords if only 'result_condition' and no 'result_count' is given" do
+      user = user_fixture()
+      user_file = insert(:keyword_file, user: user)
+      first_keyword = insert(:keyword, result_count: 5, keyword_file: user_file)
+      second_keyword = insert(:keyword, result_count: 10, keyword_file: user_file)
+
+      {keyword, _} =
+        SearchKeywords.paginated_user_keywords(user, %{
+          "page" => 1,
+          "result_condition" => ">",
+          "result_count" => ""
+        })
+
+      assert Enum.map(keyword, & &1.id) == [first_keyword.id, second_keyword.id]
+    end
+
+    test "returns filtered user's keywords where links are greater than the given 'link_count'
+          if user select '>' as 'link_condition'" do
+      user = user_fixture()
+      user_file = insert(:keyword_file, user: user)
+      searched_keyword = insert(:keyword, total_links_count: 10, keyword_file: user_file)
+      _another_keyword = insert(:keyword, total_links_count: 5, keyword_file: user_file)
+
+      {keyword, _} =
+        SearchKeywords.paginated_user_keywords(user, %{
+          "page" => 1,
+          "link_condition" => ">",
+          "link_count" => "9"
+        })
+
+      assert length(keyword) == 1
+
+      assert List.first(keyword).id == searched_keyword.id
+    end
+
+    test "returns filtered user's keywords where links are less than the given 'link_count'
+          if user select '<' as 'link_condition'" do
+      user = user_fixture()
+      user_file = insert(:keyword_file, user: user)
+      searched_keyword = insert(:keyword, total_links_count: 5, keyword_file: user_file)
+      _another_keyword = insert(:keyword, total_links_count: 10, keyword_file: user_file)
+
+      {keyword, _} =
+        SearchKeywords.paginated_user_keywords(user, %{
+          "page" => 1,
+          "link_condition" => "<",
+          "link_count" => "6"
+        })
+
+      assert length(keyword) == 1
+
+      assert List.first(keyword).id == searched_keyword.id
+    end
+
+    test "returns filtered user's keywords where links are equal to the given 'link_count'
+          if user select '=' as 'link_condition'" do
+      user = user_fixture()
+      user_file = insert(:keyword_file, user: user)
+      searched_keyword = insert(:keyword, total_links_count: 5, keyword_file: user_file)
+      _another_keyword = insert(:keyword, total_links_count: 10, keyword_file: user_file)
+
+      {keyword, _} =
+        SearchKeywords.paginated_user_keywords(user, %{
+          "page" => 1,
+          "link_condition" => "=",
+          "link_count" => "5"
+        })
+
+      assert length(keyword) == 1
+
+      assert List.first(keyword).id == searched_keyword.id
+    end
+
+    test "does not filter user's keywords if invalid 'link_condition' is given" do
+      user = user_fixture()
+      user_file = insert(:keyword_file, user: user)
+      first_keyword = insert(:keyword, total_links_count: 5, keyword_file: user_file)
+      second_keyword = insert(:keyword, total_links_count: 10, keyword_file: user_file)
+
+      {keyword, _} =
+        SearchKeywords.paginated_user_keywords(user, %{
+          "page" => 1,
+          "link_condition" => "^",
+          "link_count" => "5"
+        })
+
+      assert Enum.map(keyword, & &1.id) == [first_keyword.id, second_keyword.id]
+    end
+
+    test "does not filter user's keywords if only 'link_condition' and no 'link_count' is given" do
+      user = user_fixture()
+      user_file = insert(:keyword_file, user: user)
+      first_keyword = insert(:keyword, total_links_count: 5, keyword_file: user_file)
+      second_keyword = insert(:keyword, total_links_count: 10, keyword_file: user_file)
+
+      {keyword, _} =
+        SearchKeywords.paginated_user_keywords(user, %{
+          "page" => 1,
+          "link_condition" => "^",
+          "link_count" => ""
+        })
+
+      assert Enum.map(keyword, & &1.id) == [first_keyword.id, second_keyword.id]
+    end
   end
 
   describe "get_keyword!/1" do
