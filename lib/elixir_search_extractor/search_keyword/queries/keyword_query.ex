@@ -14,7 +14,7 @@ defmodule ElixirSearchExtractor.SearchKeyword.Queries.KeywordQuery do
 
     query
     |> filter_keywords(filtered_params["name"])
-    |> filter_url(params["result_url"])
+    |> filter_url(filtered_params["result_url"])
     |> filter_result_count(filtered_params["result_condition"], filtered_params["result_count"])
     |> filter_link_count(filtered_params["link_condition"], filtered_params["link_count"])
   end

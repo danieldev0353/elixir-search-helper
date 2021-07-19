@@ -11,7 +11,7 @@
     </div>
 
     <div class="col">
-      <%= label f, :result_count, "Results" %>
+      <%= label f, :result_count, "Result" %>
       <div class="input-group">
         <%= select f, :result_condition, [">", "<", "="], class: "form-control", prompt: "Condition" %>
         <%= number_input f, :result_count, class: "form-control", placeholder: "Count" %>
@@ -19,7 +19,7 @@
     </div>
 
     <div class="col">
-      <%= label f, :link_count, "Links" %>
+      <%= label f, :link_count, "Link" %>
       <div class="input-group">
         <%= select f, :link_condition, [">", "<", "="], class: "form-control", prompt: "Condition" %>
         <%= number_input f, :link_count, class: "form-control", placeholder: "Count" %>
